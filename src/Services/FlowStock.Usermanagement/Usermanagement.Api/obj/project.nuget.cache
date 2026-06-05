@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "hhxuu57MB7w=",
+  "success": true,
+  "projectFilePath": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Api\\Usermanagement.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\G10\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.1\\microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
+    "C:\\Users\\G10\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
