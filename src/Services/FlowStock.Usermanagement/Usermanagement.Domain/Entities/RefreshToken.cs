@@ -1,6 +1,5 @@
 ﻿namespace Usermanagement.Domain;
 
-public class RefreshToken
+public class RefreshToken : BasicProperties
 {
-
 }
