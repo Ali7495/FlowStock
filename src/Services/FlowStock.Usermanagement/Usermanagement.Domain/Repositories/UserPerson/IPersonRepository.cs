@@ -1,6 +1,6 @@
 ﻿namespace Usermanagement.Domain;
 
-public interface PersonRepository
+public interface IPersonRepository
 {
 
 }

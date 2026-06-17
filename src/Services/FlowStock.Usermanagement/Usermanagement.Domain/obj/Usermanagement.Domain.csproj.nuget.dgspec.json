@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj": {}
+    "D:\\Workshop\\Practice\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj": {}
   },
   "projects": {
-    "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj": {
+    "D:\\Workshop\\Practice\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj",
+        "projectUniqueName": "D:\\Workshop\\Practice\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj",
         "projectName": "Usermanagement.Domain",
-        "projectPath": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj",
-        "packagesPath": "C:\\Users\\G10\\.nuget\\packages\\",
-        "outputPath": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\obj\\",
+        "projectPath": "D:\\Workshop\\Practice\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj",
+        "packagesPath": "C:\\Users\\a_fakhry\\.nuget\\packages\\",
+        "outputPath": "D:\\Workshop\\Practice\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\G10\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\a_fakhry\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,7 +27,8 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://iscnugetportal.iranet.net/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
@@ -66,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
