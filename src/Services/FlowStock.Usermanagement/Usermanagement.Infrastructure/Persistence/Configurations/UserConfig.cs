@@ -17,5 +17,8 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.HashedPassword)
         .IsRequired();
+
+        builder.Property(x => x.Email)
+        .HasConversion(email => email.Value, value => Email.Create(value));
     }
 }

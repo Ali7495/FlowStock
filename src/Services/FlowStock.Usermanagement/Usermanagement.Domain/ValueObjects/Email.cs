@@ -21,7 +21,7 @@ public record Email
         if (!IsValid(email))
             throw new DomainException("Email is not valid!");
 
-        return Email.Create(email);
+        return new Email(email);
     }
 
     private static bool IsValid(string email)

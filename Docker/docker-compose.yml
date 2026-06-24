@@ -1,20 +1,21 @@
 services:
   postgres:
-    image: postgres:17
+    image: postgres:latest
     container_name: flow-postgres
     
     environment:
       POSTGRES_USER: flowstock
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_PASSWORD: flowstock
+      POSTGRES_DB: UsermanagementDb
 
     ports:
       - "5432:5432"
 
     volumes:
-      - postgres-data:var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 
   pgadmin:
-    image: dpage:pgadmin4
+    image: dpage/pgadmin4:latest
     container_name: flow-pgadmin
 
     environment:
@@ -24,7 +25,7 @@ services:
     ports:
       - "5050:80"
 
-    depends-on:
+    depends_on:
       - postgres    
 
   redis:

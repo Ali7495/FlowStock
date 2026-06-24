@@ -5,7 +5,7 @@ public class User : BasicEntity
     public Guid PersonId { get; set; }
     public string Username { get; set; }
     public string Mobile { get; set; }
-    public Email email { get; set; }
+    public Email Email { get; set; }
     public string HashedPassword { get; set; }
 
 
