@@ -20,5 +20,9 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Email)
         .HasConversion(email => email.Value, value => Email.Create(value));
+
+        builder.HasOne(x => x.Person)
+        .WithMany(x => x.Users)
+        .HasForeignKey(x => x.PersonId);
     }
 }

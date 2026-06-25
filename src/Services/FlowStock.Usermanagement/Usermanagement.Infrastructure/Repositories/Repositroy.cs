@@ -12,7 +12,7 @@ public class Repositroy<TEntity> : IRepository<TEntity> where TEntity : class
     public Repositroy(UsermanagementDbContext dbContext)
     {
         _dbContext = dbContext;
-        Entities = dbContext.Set<TEntity>();
+        Entities = _dbContext.Set<TEntity>();
     }
 
     public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
