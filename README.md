@@ -31,9 +31,6 @@ The main goal is to provide powerful warehouse & stock features without expensiv
 - **Validation**: FluentValidation
 - **Others**: Serilog, Message Brocker, ...
 
-## 📁 Project Structure
-(اگر diagram داری، عکسش رو اینجا بگذار)
-
 ## 🚀 How to Run (Local Development)
 ```bash
 # Clone the repo
