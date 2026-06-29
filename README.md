@@ -11,10 +11,7 @@ FlowStock is designed to be a **professional yet simple and affordable** invento
 The main goal is to provide powerful warehouse & stock features without expensive monthly subscriptions.
 
 ## ✨ Current Features
-(اینجا لیست کن — حتی اگر هنوز کامل نیست)
-- Product & Category Management
-- Stock In / Stock Out tracking
-- ... (هر چیزی که تا حالا زدی)
+- Usermanagement
 
 ## 📋 Future Roadmap
 - Multi-tenant support
