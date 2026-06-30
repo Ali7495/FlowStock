@@ -14,7 +14,16 @@ public class User : BasicEntity
     public Email Email { get; set; }
     public string HashedPassword { get; set; }
 
-
+    public static User Create(string username, Email email, string hashedPassword, string mobile)
+    {
+        return new()
+        {
+            Username = username,
+            HashedPassword = hashedPassword,
+            Email = email,
+            Mobile = mobile
+        };
+    }
 
     public Person Person { get; set; }
     public ICollection<UserRole> UserRoles { get; set; }
