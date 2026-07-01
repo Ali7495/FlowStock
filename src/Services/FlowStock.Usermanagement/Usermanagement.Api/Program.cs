@@ -1,5 +1,3 @@
-using FluentValidation;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Usermanagement.Application;
 using Usermanagement.Infrastructure;
@@ -9,20 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddApplication();
+builder.Services.AddInfrastruction(builder.Configuration);
+builder.Services.AddControllers();
 
-builder.Services.AddDbContext<UsermanagementDbContext>(options=>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("UsermanagementDb"));
-});
-
-builder.Services.AddValidatorsFromAssembly(typeof(ApplicationAssembly).Assembly);
-
-builder.Services.AddMediatR(config =>
-{
-    config.RegisterServicesFromAssembly(typeof(ApplicationAssembly).Assembly);
-});
-
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehaviors<,>));
 
 var app = builder.Build();
 
@@ -34,5 +22,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 
 app.Run();

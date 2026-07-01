@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Ipnp41/2Eso=",
+  "dgSpecHash": "vTlOW+cb5h4=",
   "success": true,
   "projectFilePath": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Infrastructure\\Usermanagement.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\G10\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\G10\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
+    "C:\\Users\\G10\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\12.1.1\\fluentvalidation.dependencyinjectionextensions.12.1.1.nupkg.sha512",
     "C:\\Users\\G10\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\G10\\.nuget\\packages\\mediatr\\14.1.0\\mediatr.14.1.0.nupkg.sha512",
     "C:\\Users\\G10\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",

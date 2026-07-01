@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "yxEARGdhbCs=",
+  "dgSpecHash": "OE3jouuy+W8=",
   "success": true,
   "projectFilePath": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Application\\Usermanagement.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\G10\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
+    "C:\\Users\\G10\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\12.1.1\\fluentvalidation.dependencyinjectionextensions.12.1.1.nupkg.sha512",
     "C:\\Users\\G10\\.nuget\\packages\\mediatr\\14.1.0\\mediatr.14.1.0.nupkg.sha512",
     "C:\\Users\\G10\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\G10\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.0\\microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",

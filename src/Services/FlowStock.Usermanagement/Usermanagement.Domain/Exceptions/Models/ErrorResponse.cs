@@ -1,0 +1,1 @@
+public sealed record ErrorResponse(int StatusCode, string Message, IEnumerable<string>? ErrorMessages = null);
