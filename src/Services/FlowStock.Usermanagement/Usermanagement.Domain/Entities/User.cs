@@ -4,12 +4,7 @@ public class User : BasicEntity
 {
     public Guid PersonId { get; set; }
     public string Username { get; set; }
-    public string LowerUsername {
-        get
-        {
-            return Username != null ? Username.ToLower() : string.Empty;
-        }
-    }
+    public string NormalizedUsername { get; set; }
     public string Mobile { get; set; }
     public Email Email { get; set; }
     public string HashedPassword { get; set; }
@@ -19,6 +14,7 @@ public class User : BasicEntity
         return new()
         {
             Username = username,
+            NormalizedUsername = username.Trim().ToLower(),
             HashedPassword = hashedPassword,
             Email = email,
             Mobile = mobile

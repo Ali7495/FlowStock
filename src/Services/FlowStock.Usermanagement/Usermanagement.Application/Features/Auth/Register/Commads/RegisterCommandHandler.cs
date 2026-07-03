@@ -20,7 +20,7 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Gu
 
     public async Task<Guid> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        User existingUser = await _userRepository.GetByUsernameAsync(request.Username, cancellationToken);
+        User existingUser = await _userRepository.GetByUsernameAsync(request.Username.Trim().ToLower(), cancellationToken);
         if (existingUser is not null)
             throw new DomainException("This username is already exist");
 

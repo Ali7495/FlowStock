@@ -21,13 +21,8 @@ namespace MyApp.Namespace
         {
             Guid id = await _mediator.Send(registerCommand,cancellationToken);
 
-            return CreatedAtAction(nameof(GetUser),"Users",new{id},new{id});
+            return CreatedAtAction(nameof(UserController),"User",new{id},new{id});
         }
 
-        [HttpGet("users/{id}")]
-        public async Task<IActionResult> GetUser(Guid id, CancellationToken cancellationToken)
-        {
-            return Ok();
-        }
     }
 }

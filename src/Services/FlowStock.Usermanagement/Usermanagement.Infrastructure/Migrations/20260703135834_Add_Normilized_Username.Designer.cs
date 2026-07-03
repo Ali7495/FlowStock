@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Usermanagement.Infrastructure;
@@ -11,9 +12,11 @@ using Usermanagement.Infrastructure;
 namespace Usermanagement.Infrastructure.Migrations
 {
     [DbContext(typeof(UsermanagementDbContext))]
-    partial class UsermanagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260703135834_Add_Normilized_Username")]
+    partial class Add_Normilized_Username
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

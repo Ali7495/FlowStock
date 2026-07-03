@@ -2,6 +2,11 @@
 
 public class Person : BasicEntity
 {
+    public Person()
+    {
+        Users = new List<User>();
+    }
+
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string NationalCode { get; set; }
@@ -18,7 +23,7 @@ public class Person : BasicEntity
 
     public User CreateUser(string username, Email email, string hashedPassword, string mobile)
     {
-        User user = User.Create(username,email,hashedPassword,mobile);
+        User user = User.Create(username, email, hashedPassword, mobile);
 
         AddUser(user);
 

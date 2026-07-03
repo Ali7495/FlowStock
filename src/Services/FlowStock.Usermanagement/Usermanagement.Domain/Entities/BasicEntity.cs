@@ -11,7 +11,7 @@ public abstract class BasicEntity
     public void Delete()
     {
         IsDeleted = true;
-        DeletedAt = DateTime.Now;
+        DeletedAt = DateTime.UtcNow;
     }
 
     public void Restore()

@@ -15,6 +15,7 @@ public static class DependencyInjection
               });
 
         services.AddValidatorsFromAssembly(typeof(ApplicationAssembly).Assembly);
+        services.AddAutoMapper(cfg=> cfg.AddProfile<UserMappingProfile>());
 
         services.AddTransient(
             typeof(IPipelineBehavior<,>),

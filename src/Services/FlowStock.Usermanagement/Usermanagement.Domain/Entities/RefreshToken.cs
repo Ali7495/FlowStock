@@ -7,7 +7,7 @@ public class RefreshToken : BasicEntity
     public DateTime ExpiredAt { get; set; }
     public DateTime? RevokedAt { get; set; }
     public string? ReplacedByToken { get; set; }
-    public bool IsExpired => DateTime.Now >= ExpiredAt;
+    public bool IsExpired => DateTime.UtcNow >= ExpiredAt;
     public bool IsRevoked => RevokedAt.HasValue;
     public bool IsActive => !IsRevoked && !IsExpired;
 

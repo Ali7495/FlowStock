@@ -73,12 +73,12 @@ public class UsermanagementDbContext : DbContext
             if(entry.State == EntityState.Added)
             {
                 entry.Entity.Id = Guid.NewGuid();
-                entry.Entity.CreatedAt = DateTime.Now;
+                entry.Entity.CreatedAt = DateTime.UtcNow;
             }
 
             if (entry.State == EntityState.Modified)
             {
-                entry.Entity.UpdatedAt = DateTime.Now;
+                entry.Entity.UpdatedAt = DateTime.UtcNow;
             }
 
             if (entry.State == EntityState.Deleted)
@@ -86,7 +86,7 @@ public class UsermanagementDbContext : DbContext
                 entry.State = EntityState.Modified;
 
                 entry.Entity.IsDeleted = true;
-                entry.Entity.DeletedAt = DateTime.Now;
+                entry.Entity.DeletedAt = DateTime.UtcNow;
             }
         }
 

@@ -17,6 +17,8 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IPasswordService, PasswordService>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         return services;
