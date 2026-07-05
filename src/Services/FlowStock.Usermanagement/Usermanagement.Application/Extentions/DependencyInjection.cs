@@ -1,6 +1,8 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Usermanagement.Application;
 
@@ -15,7 +17,19 @@ public static class DependencyInjection
               });
 
         services.AddValidatorsFromAssembly(typeof(ApplicationAssembly).Assembly);
-        services.AddAutoMapper(cfg=> cfg.AddProfile<UserMappingProfile>());
+
+        services.AddSingleton<IMapper>(provider =>
+{
+    ILoggerFactory loggerFactory =
+        provider.GetRequiredService<ILoggerFactory>();
+
+    MapperConfiguration configuration = new(cfg =>
+    {
+        cfg.AddMaps(typeof(ApplicationAssembly).Assembly);
+    }, loggerFactory);
+
+    return configuration.CreateMapper();
+});
 
         services.AddTransient(
             typeof(IPipelineBehavior<,>),

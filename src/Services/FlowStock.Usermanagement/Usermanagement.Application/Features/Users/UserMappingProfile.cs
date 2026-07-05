@@ -7,14 +7,13 @@ public class UserMappingProfile : Profile
 {
     public UserMappingProfile()
     {
-        CreateMap<User,UserDto>()
-        .ForMember(u=> u.FirstName,u=> u.MapFrom(x=> x.Person.FirstName));
-
-        CreateMap<User,UserDto>()
-        .ForCtorParam(nameof(UserDto.LastName),u=> u.MapFrom(x=> x.Person.LastName));
+       CreateMap<User, UserDto>()
+            .ForCtorParam(nameof(UserDto.FirstName),
+                opt => opt.MapFrom(src => src.Person.FirstName))
+            .ForCtorParam(nameof(UserDto.LastName),
+                opt => opt.MapFrom(src => src.Person.LastName))
+            .ForCtorParam(nameof(UserDto.Email),
+                opt => opt.MapFrom(src => src.Email.Value));
         
-        CreateMap<User,UserDto>()
-        .ForCtorParam(nameof(UserDto.Email),u=> u.MapFrom(x=> x.Email.Value));
-        ;
     }
 }
