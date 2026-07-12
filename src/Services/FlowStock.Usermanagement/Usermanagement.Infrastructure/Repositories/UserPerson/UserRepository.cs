@@ -20,4 +20,12 @@ public class UserRepository : Repositroy<User>, IUserRepository
     {
         return await Entities.FirstOrDefaultAsync(u=> u.NormalizedUsername == username.Trim().ToLower(), cancellationToken);
     }
+
+    public async Task<User> GetLoginByNormalizedUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        return await Entities
+        .Include(u=> u.Person)
+        .Include(u=> u.RefreshTokens)
+        .FirstOrDefaultAsync(u=> u.NormalizedUsername == username.Trim().ToLower(), cancellationToken);
+    }
 }

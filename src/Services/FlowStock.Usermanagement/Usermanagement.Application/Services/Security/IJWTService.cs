@@ -4,5 +4,7 @@ namespace Usermanagement.Application;
 
 public interface IJWTService
 {
-    string GenerateToken(User user);
+    string GenerateAccessToken(User user);
+
+    RefreshToken GenerateRefreshToken();
 }

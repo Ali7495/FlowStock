@@ -24,5 +24,13 @@ namespace MyApp.Namespace
             return CreatedAtAction(nameof(UserController),"User",new{id},new{id});
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginCommand loginCommand, CancellationToken cancellationToken)
+        {
+            LoginResponse response = await _mediator.Send(loginCommand,cancellationToken);
+
+            return Ok(response);
+        }
+
     }
 }

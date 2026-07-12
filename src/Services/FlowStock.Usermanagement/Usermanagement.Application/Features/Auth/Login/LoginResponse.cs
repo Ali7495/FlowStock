@@ -1,6 +1,3 @@
 ﻿namespace Usermanagement.Application;
 
-public class LoginResponse
-{
-
-}
+public record LoginResponse(string accessToken, string refreshToken, DateTime expiresAt);

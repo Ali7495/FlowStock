@@ -11,6 +11,13 @@ public class RefreshToken : BasicEntity
     public bool IsRevoked => RevokedAt.HasValue;
     public bool IsActive => !IsRevoked && !IsExpired;
 
-
+    public static RefreshToken Create(string token, DateTime expiresAt)
+    {
+        return new()
+        {
+            Token = token,
+            ExpiredAt = expiresAt
+        };
+    }
     public User User { get; set; }
 }
