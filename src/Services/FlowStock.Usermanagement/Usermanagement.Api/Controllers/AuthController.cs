@@ -21,7 +21,7 @@ namespace MyApp.Namespace
         {
             Guid id = await _mediator.Send(registerCommand,cancellationToken);
 
-            return CreatedAtAction(nameof(UserController),"User",new{id},new{id});
+            return CreatedAtRoute("GetUser", new { id }, new { id });
         }
 
         [HttpPost("login")]

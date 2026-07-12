@@ -16,6 +16,8 @@ public static class DependencyInjection
             options.UseNpgsql(configuration.GetConnectionString("UsermanagementDb"));
         });
 
+        services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+        services.AddScoped<IJWTService,JwtService>();
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPersonRepository, PersonRepository>();

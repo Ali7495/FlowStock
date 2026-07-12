@@ -16,7 +16,7 @@ namespace MyApp.Namespace
             _mediator = mediator;
         }
 
-        [HttpGet("users/{id}")]
+        [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(Guid id, CancellationToken cancellationToken)
         {
             UserDto user = await _mediator.Send(new GetUserByIdQuery(id), cancellationToken);
