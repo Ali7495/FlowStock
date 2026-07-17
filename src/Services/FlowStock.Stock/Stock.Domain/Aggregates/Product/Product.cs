@@ -1,6 +1,6 @@
 ﻿namespace Stock.Domain;
 
-public class Product : BasicEntity
+public class Product : AggregateRoot
 {
     public Product()
     {

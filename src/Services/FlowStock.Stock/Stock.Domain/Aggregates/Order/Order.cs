@@ -1,6 +1,8 @@
 ﻿namespace Stock.Domain;
 
-public class Order : BasicEntity
+public class Order : AggregateRoot
 {
+    public Guid CustomerId { get; set; }
     public OrderCode Code { get; set; }
+    
 }
