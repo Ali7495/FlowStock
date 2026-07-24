@@ -13,4 +13,20 @@ public class OrderItem : BasicEntity
 
     public Order Order { get; set; }
     public ProductPrice ProductPrice { get; set; }
+
+    public static OrderItem Create(Guid productPriceId, int quantity, decimal unitPrice, decimal discountAmount, decimal tax, string? description)
+    {
+        return new()
+        {
+            ProductPriceId = productPriceId,
+            Quantity = quantity,
+            UnitPrice = unitPrice,
+            DiscountAmount = discountAmount,
+            Tax = tax,
+            TotalAmount = (unitPrice * quantity) - discountAmount + tax,
+            Description = description
+        };
+    }
+
+    
 }

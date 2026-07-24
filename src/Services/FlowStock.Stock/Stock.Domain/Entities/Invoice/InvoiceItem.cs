@@ -10,7 +10,21 @@ public class InvoiceItem : BasicEntity
     public decimal DiscountAmount { get; set; }
     public decimal TotalAmount { get; set; }
     public decimal Tax { get; set; }
-
     public Product Product { get; set; }
     public Invoice Invoice { get; set; }
+
+    
+
+    public static InvoiceItem Create(Guid productId, string productName, int quantity, decimal unitPrice, decimal discount, decimal tax)
+    {
+        return new()
+        {
+            ProductId = productId,
+            ProductName = productName,
+            Quantity = quantity,
+            UnitPrice = unitPrice,
+            TotalAmount = (quantity * unitPrice) - discount + tax,
+            Tax = tax
+        };
+    }
 }

@@ -11,6 +11,19 @@ public class Payment : AggregateRoot
     public string? TransactionId { get; set; }
     public string? ReferenceName { get; set; }
     public string? Description { get; set; }
-
     public Order Order { get; set; }
+
+    public static Payment Create(Guid orderId, string paymentCode, PaymentMethod paymentMethod, PaymentStatus paymentStatus, decimal amount, DateTime paymentDate)
+    {
+        return new()
+        {
+            OrderId = orderId,
+            PaymentCode = PaymentCode.Create(paymentCode),
+            PaymentMethod = paymentMethod,
+            PaymentStatus = paymentStatus,
+            Amount = amount,
+            PaymentDate = paymentDate
+        };
+    }
+
 }
