@@ -17,6 +17,7 @@ public class Invoice : AggregateRoot
     public decimal Tax { get; set; }
     public decimal FinalAmount { get; set; }
     public ICollection<InvoiceItem> InvoiceItems { get; set; }
+    public Order Order { get; set; }
 
 
 

@@ -33,6 +33,7 @@ public class Product : AggregateRoot
         ProductPrices.Add(productPrice);
     }
 
+    public ProductCategory ProductCategory { get; set; }
     public ICollection<ProductPrice> ProductPrices { get; set; }
     public ICollection<InvoiceItem> InvoiceItems { get; set; }
     public ICollection<InventoryTransaction> InventoryTransactions { get; set; }

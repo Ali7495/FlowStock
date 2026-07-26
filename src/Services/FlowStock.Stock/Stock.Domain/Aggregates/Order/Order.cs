@@ -16,6 +16,9 @@ public class Order : AggregateRoot
     public decimal DiscountAmount { get; set; }
     public decimal Tax { get; set; }
     public string? Description { get; set; }
+
+
+    public Customer Customer { get; set; }
     public ICollection<OrderItem> OrderItems { get; set; }
     public ICollection<Payment> Payments { get; set; }
     public ICollection<InventoryReservation> InventoryReservations { get; set; }

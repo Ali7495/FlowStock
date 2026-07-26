@@ -1,6 +1,6 @@
 ﻿namespace Stock.Domain;
 
-public interface IProductCategoryRepository
+public interface IProductCategoryRepository : IRepository<ProductCategory>
 {
 
 }

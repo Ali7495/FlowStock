@@ -16,4 +16,5 @@ public class ProductPrice : BasicEntity
     }
 
     public ICollection<OrderItem> OrderItems { get; set; }
+    public Product Product { get; set; }
 }
