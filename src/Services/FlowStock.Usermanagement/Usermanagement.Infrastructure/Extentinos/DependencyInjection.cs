@@ -19,6 +19,7 @@ public static class DependencyInjection
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
         services.AddScoped<IJWTService,JwtService>();
         services.AddScoped<IPasswordService, PasswordService>();
+        services.AddScoped(typeof(IRepository<>),typeof(Repositroy<>));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();

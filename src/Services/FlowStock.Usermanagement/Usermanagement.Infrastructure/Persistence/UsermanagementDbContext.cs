@@ -66,7 +66,7 @@ public class UsermanagementDbContext : DbContext
         #endregion
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         foreach (var entry in ChangeTracker.Entries<BasicEntity>())
         {
@@ -90,7 +90,7 @@ public class UsermanagementDbContext : DbContext
             }
         }
 
-        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        return base.SaveChangesAsync(cancellationToken);
     }
 
 }

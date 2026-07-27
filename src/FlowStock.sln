@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.Application", "Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.Infrastructure", "Services\FlowStock.Stock\Stock.Infrastructure\Stock.Infrastructure.csproj", "{432BA11F-B4B9-4F14-8A8C-CB87268E8EE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock.Api", "Services\FlowStock.Stock\Stock.Api\Stock.Api.csproj", "{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,18 @@ Global
 		{432BA11F-B4B9-4F14-8A8C-CB87268E8EE4}.Release|x64.Build.0 = Release|Any CPU
 		{432BA11F-B4B9-4F14-8A8C-CB87268E8EE4}.Release|x86.ActiveCfg = Release|Any CPU
 		{432BA11F-B4B9-4F14-8A8C-CB87268E8EE4}.Release|x86.Build.0 = Release|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Debug|x64.Build.0 = Debug|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Debug|x86.Build.0 = Debug|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Release|x64.ActiveCfg = Release|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Release|x64.Build.0 = Release|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Release|x86.ActiveCfg = Release|Any CPU
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,5 +145,6 @@ Global
 		{AF2FE2C5-10A0-4708-8AC9-430B6B143ED7} = {14E966A4-7087-0BE9-9AD7-DF9F91A2F8DE}
 		{ADB36D86-A919-448B-9FC5-700F5D768137} = {14E966A4-7087-0BE9-9AD7-DF9F91A2F8DE}
 		{432BA11F-B4B9-4F14-8A8C-CB87268E8EE4} = {14E966A4-7087-0BE9-9AD7-DF9F91A2F8DE}
+		{85D5C4B2-4D19-4CEE-AC37-17A3D5E9AEDE} = {14E966A4-7087-0BE9-9AD7-DF9F91A2F8DE}
 	EndGlobalSection
 EndGlobal
