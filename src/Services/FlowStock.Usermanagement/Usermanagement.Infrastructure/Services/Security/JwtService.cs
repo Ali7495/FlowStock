@@ -51,7 +51,8 @@ public class JwtService : IJWTService
     {
         List<Claim> claims = new();
 
-        claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
+        claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.PersonId.ToString()));
+        claims.Add(new("userId",user.Id.ToString()));
         claims.Add(new Claim(JwtRegisteredClaimNames.UniqueName, user.Username));
         claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email.Value));
         claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));

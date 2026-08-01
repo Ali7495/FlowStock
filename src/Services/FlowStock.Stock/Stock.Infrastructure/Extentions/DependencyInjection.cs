@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Stock.Application;
 using Stock.Domain;
 
 namespace Stock.Infrastructure;
@@ -18,6 +20,18 @@ public static class DependencyInjection
         services.AddScoped<IProductCategoryRepository,ProductCategoryRepository>();
         services.AddScoped<IProductRepository,ProductRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+
+        services.AddAuthentication().AddJwtBearer();
+
+        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(
+                Policies.ProductCategoryCreate,
+                policy => policy.AddRequirements(new PermissionRequirement(Permissions.ProductCategoryCreate))
+            );
+        });
 
         return services;
     }
