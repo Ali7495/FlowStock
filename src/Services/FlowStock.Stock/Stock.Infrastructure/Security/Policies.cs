@@ -1,6 +1,8 @@
 ﻿namespace Stock.Infrastructure;
 
-public class Policies
+public static class Policies
 {
+    public const string Admin = "Admin";
 
+    public const string ProductCategoryCreate = nameof(ProductCategoryCreate);
 }

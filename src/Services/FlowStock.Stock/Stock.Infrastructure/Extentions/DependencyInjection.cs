@@ -11,27 +11,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<StockDbContext>(options=>
+        services.AddDbContext<StockDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("StockDb"));
         });
 
-        services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-        services.AddScoped<IProductCategoryRepository,ProductCategoryRepository>();
-        services.AddScoped<IProductRepository,ProductRepository>();
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
 
-        services.AddAuthentication().AddJwtBearer();
-
-        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
-        services.AddAuthorization(options =>
-        {
-            options.AddPolicy(
-                Policies.ProductCategoryCreate,
-                policy => policy.AddRequirements(new PermissionRequirement(Permissions.ProductCategoryCreate))
-            );
-        });
+        services.AddJwtAuthentication(configuration);
+        services.AddApplicationAuthorization();
 
         return services;
     }
