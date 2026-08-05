@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using BuildingBlocks.Domain;
+using FluentValidation;
 using Usermanagement.Domain;
 
 namespace Usermanagement.Api;
@@ -28,7 +29,7 @@ public class ExceptionMiddleware
 
             context.Response.WriteAsJsonAsync(new ErrorResponse(StatusCodes.Status400BadRequest, ex.Message, ex.Errors.Select(e => e.ErrorMessage).ToList()));
         }
-        catch (DomainException ex)
+        catch (DomainExceptions ex)
         {
             _logger.LogError("Domain",ex);
 

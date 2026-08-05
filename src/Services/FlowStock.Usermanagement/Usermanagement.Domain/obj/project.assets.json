@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "BuildingBlocks.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/BuildingBlocks.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BuildingBlocks.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "BuildingBlocks.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../FlowStock.BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj",
+      "msbuildProject": "../../FlowStock.BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "BuildingBlocks.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\G10\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.BuildingBlocks\\BuildingBlocks.Domain\\BuildingBlocks.Domain.csproj": {
+              "projectPath": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.BuildingBlocks\\BuildingBlocks.Domain\\BuildingBlocks.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

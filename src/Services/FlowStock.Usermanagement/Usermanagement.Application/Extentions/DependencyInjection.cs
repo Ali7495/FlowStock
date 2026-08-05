@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BuildingBlocks.Application;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

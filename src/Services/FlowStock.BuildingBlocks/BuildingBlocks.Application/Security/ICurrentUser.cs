@@ -1,4 +1,4 @@
-﻿namespace Stock.Application;
+﻿namespace BuildingBlocks.Application;
 
 public interface ICurrentUser
 {

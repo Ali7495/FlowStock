@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BuildingBlocks.Domain;
 using MediatR;
 using Usermanagement.Domain;
 
@@ -20,7 +21,7 @@ public sealed class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, 
         User user = await _userRepository.GetByIdAsync(request.id,cancellationToken);
 
         if(user is null)
-            throw new DomainException("The user is not exist!");
+            throw new DomainExceptions("The user is not exist!");
 
         return _mapper.Map<UserDto>(user);    
     }

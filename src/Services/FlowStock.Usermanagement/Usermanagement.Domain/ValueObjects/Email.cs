@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using BuildingBlocks.Domain;
 
 namespace Usermanagement.Domain;
 
@@ -14,12 +15,12 @@ public record Email
     public static Email Create(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
-            throw new DomainException("Email is required!");
+            throw new DomainExceptions("Email is required!");
 
         email = email.Trim().ToLowerInvariant();
 
         if (!IsValid(email))
-            throw new DomainException("Email is not valid!");
+            throw new DomainExceptions("Email is not valid!");
 
         return new Email(email);
     }

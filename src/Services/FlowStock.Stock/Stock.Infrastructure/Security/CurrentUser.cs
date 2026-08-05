@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using BuildingBlocks.Application;
 using Microsoft.AspNetCore.Http;
 using Stock.Application;
 

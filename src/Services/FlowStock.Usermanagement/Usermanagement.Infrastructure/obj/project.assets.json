@@ -1042,11 +1042,38 @@
           }
         }
       },
+      "BuildingBlocks.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AutoMapper": "16.2.0",
+          "FluentValidation": "12.1.1",
+          "FluentValidation.DependencyInjectionExtensions": "12.1.1",
+          "MediatR": "14.1.0"
+        },
+        "compile": {
+          "bin/placeholder/BuildingBlocks.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BuildingBlocks.Application.dll": {}
+        }
+      },
+      "BuildingBlocks.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/BuildingBlocks.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BuildingBlocks.Domain.dll": {}
+        }
+      },
       "Usermanagement.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "AutoMapper": "16.2.0",
+          "BuildingBlocks.Application": "1.0.0",
           "FluentValidation": "12.1.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
           "MediatR": "14.1.0",
@@ -1062,6 +1089,9 @@
       "Usermanagement.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "BuildingBlocks.Domain": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Usermanagement.Domain.dll": {}
         },
@@ -3185,6 +3215,16 @@
         "system.identitymodel.tokens.jwt.8.0.1.nupkg.sha512",
         "system.identitymodel.tokens.jwt.nuspec"
       ]
+    },
+    "BuildingBlocks.Application/1.0.0": {
+      "type": "project",
+      "path": "../../FlowStock.BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.csproj",
+      "msbuildProject": "../../FlowStock.BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.csproj"
+    },
+    "BuildingBlocks.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../FlowStock.BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj",
+      "msbuildProject": "../../FlowStock.BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj"
     },
     "Usermanagement.Application/1.0.0": {
       "type": "project",

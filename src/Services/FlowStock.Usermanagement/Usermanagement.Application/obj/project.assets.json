@@ -215,9 +215,38 @@
           }
         }
       },
+      "BuildingBlocks.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AutoMapper": "16.2.0",
+          "FluentValidation": "12.1.1",
+          "FluentValidation.DependencyInjectionExtensions": "12.1.1",
+          "MediatR": "14.1.0"
+        },
+        "compile": {
+          "bin/placeholder/BuildingBlocks.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BuildingBlocks.Application.dll": {}
+        }
+      },
+      "BuildingBlocks.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/BuildingBlocks.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BuildingBlocks.Domain.dll": {}
+        }
+      },
       "Usermanagement.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "BuildingBlocks.Domain": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Usermanagement.Domain.dll": {}
         },
@@ -594,6 +623,16 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
+    "BuildingBlocks.Application/1.0.0": {
+      "type": "project",
+      "path": "../../FlowStock.BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.csproj",
+      "msbuildProject": "../../FlowStock.BuildingBlocks/BuildingBlocks.Application/BuildingBlocks.Application.csproj"
+    },
+    "BuildingBlocks.Domain/1.0.0": {
+      "type": "project",
+      "path": "../../FlowStock.BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj",
+      "msbuildProject": "../../FlowStock.BuildingBlocks/BuildingBlocks.Domain/BuildingBlocks.Domain.csproj"
+    },
     "Usermanagement.Domain/1.0.0": {
       "type": "project",
       "path": "../Usermanagement.Domain/Usermanagement.Domain.csproj",
@@ -603,6 +642,7 @@
   "projectFileDependencyGroups": {
     "net10.0": [
       "AutoMapper >= 16.2.0",
+      "BuildingBlocks.Application >= 1.0.0",
       "FluentValidation >= 12.1.1",
       "FluentValidation.DependencyInjectionExtensions >= 12.1.1",
       "MediatR >= 14.1.0",
@@ -642,6 +682,9 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
+            "e:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.BuildingBlocks\\BuildingBlocks.Application\\BuildingBlocks.Application.csproj": {
+              "projectPath": "e:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.BuildingBlocks\\BuildingBlocks.Application\\BuildingBlocks.Application.csproj"
+            },
             "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj": {
               "projectPath": "E:\\WorkShop\\FlowStock\\src\\Services\\FlowStock.Usermanagement\\Usermanagement.Domain\\Usermanagement.Domain.csproj"
             }

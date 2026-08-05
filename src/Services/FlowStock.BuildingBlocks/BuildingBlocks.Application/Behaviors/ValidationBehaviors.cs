@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 using MediatR;
 
-namespace Usermanagement.Application;
+namespace BuildingBlocks.Application;
 
 public class ValidationBehaviors<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {

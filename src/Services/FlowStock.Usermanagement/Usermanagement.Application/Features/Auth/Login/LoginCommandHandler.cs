@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BuildingBlocks.Domain;
+using MediatR;
 using Usermanagement.Domain;
 
 namespace Usermanagement.Application;
@@ -22,10 +23,10 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
     {
         User user = await _userRepository.GetLoginByNormalizedUsernameAsync(request.username, cancellationToken);
         if (user is null)
-            throw new DomainException("The username or password is not valid!");
+            throw new DomainExceptions("The username or password is not valid!");
 
         if (!_passwordService.Verify(request.password, user.HashedPassword))
-            throw new DomainException("The username or password is not valid!");
+            throw new DomainExceptions("The username or password is not valid!");
 
         string accessToken = _jWTService.GenerateAccessToken(user);
 

@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Usermanagement.Domain\Usermanagement.Domain.csproj" />
+    <ProjectReference Include="..\..\FlowStock.BuildingBlocks\BuildingBlocks.Application\BuildingBlocks.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace Stock.Domain;
+﻿using BuildingBlocks.Domain;
+
+namespace Stock.Domain;
 
 public record class InvoiceCode
 {
