@@ -2,4 +2,4 @@
 
 namespace Stock.Application;
 
-public record ProductCategoryCommand() : IRequest<Guid>;
+public record ProductCategoryCommand(string name) : IRequest<Guid>;

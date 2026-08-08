@@ -11,25 +11,25 @@ public class CreateProductCategoryCommandHandlerTests
     public async Task Should_Create_ProductCategory_When_Command_Is_Valid()
     {
         //Arrange
-        Mock<IProductCategoryRepository> repository = new ();
+        Mock<IProductCategoryRepository> categoryMock = new();
 
-        repository.Setup(p=> p.ExistsByNameAsync("Gold",It.IsAny<CancellationToken>())).ReturnsAsync(false);
+        categoryMock.Setup(c=> c.IsCategoryExistByName("Gold",It.IsAny<CancellationToken>())).ReturnsAsync(false);
 
         Mock<ICurrentUser> currentUser = new();
 
-        currentUser.Setup(c=> c.PersonId).Returns(Guid.NewGuid);
+        currentUser.Setup(c=> c.PersonId).Returns(Guid.NewGuid());
 
-        CreateProductCategoryCommandHandler handler = new(repository.Object, currentUser.Object);
+        ProductCategoryCommandHandler handler = new(categoryMock.Object, currentUser.Object);
 
-        CreateProductCategoryCommand command = new("Gold");
+        ProductCategoryCommand command = new("Gold");
 
-        //Act 
-
+        //Act
         Guid id = await handler.Handle(command, CancellationToken.None);
 
         //Assert
-
         id.Should().NotBeEmpty();
-        repository.Verify(x=> x.AddAsync(It.IsAny<ProductCategory>(), It.IsAny<CancellationToken>()), Times.Once);
+        categoryMock.Verify(c=> c.AddAsync(It.IsAny<ProductCategory>(),It.IsAny<CancellationToken>()),Times.Once);
     }
+
+    
 }
