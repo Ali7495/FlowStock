@@ -26,7 +26,7 @@ public sealed class ProductCategoryQueryTests
         ProductCategoryQuery query = new();
 
         //Act
-
+ 
         List<ProductCategory> productCategories = handler.Handle(query,CancellationToken.None);
 
         //Assert
