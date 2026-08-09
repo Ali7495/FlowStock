@@ -20,12 +20,17 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         await Entities.AddAsync(entity, cancellationToken);
     }
 
-    public async Task<ICollection<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+    public virtual async Task<ICollection<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
         return await Entities.Where(predicate).ToListAsync(cancellationToken);
     }
 
-    public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public virtual async Task<List<TEntity>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        return await Entities.ToListAsync(cancellationToken);
+    }
+
+    public virtual async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await Entities.FindAsync([id], cancellationToken);
     }

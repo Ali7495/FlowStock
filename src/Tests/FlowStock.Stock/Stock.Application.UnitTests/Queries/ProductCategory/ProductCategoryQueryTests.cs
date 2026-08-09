@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using AutoMapper;
+using FluentAssertions;
 using Moq;
 using Stock.Domain;
 
@@ -19,15 +20,24 @@ public sealed class ProductCategoryQueryTests
 
         Mock<IProductCategoryRepository> repository = new();
 
-        repository.Setup(r=> r.GetAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(categories);
+        repository.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>())).ReturnsAsync(categories);
 
-        ProductCagetoryQueryHandler handler = new(repository.Object);
+        Mock<IMapper> mapper = new();
 
-        ProductCategoryQuery query = new();
+        mapper.Setup(m => m.Map<List<ProductCategoryDto>>(It.IsAny<List<ProductCategory>>())).Returns(new List<ProductCategoryDto>
+        {
+            new() { Name = "Gold" },
+            new() { Name = "Silver" },
+            new() { Name = "Jewlery" }
+        });
+
+        ProductCagetoryQueryHandler handler = new(repository.Object, mapper.Object);
+
+        GetProductCategoryQuery query = new();
 
         //Act
- 
-        List<ProductCategory> productCategories = handler.Handle(query,CancellationToken.None);
+
+        List<ProductCategoryDto> productCategories = await handler.Handle(query, CancellationToken.None);
 
         //Assert
 

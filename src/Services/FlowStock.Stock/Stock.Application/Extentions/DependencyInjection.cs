@@ -1,24 +1,13 @@
 ﻿using AutoMapper;
-using BuildingBlocks.Application;
-using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Usermanagement.Application;
+namespace Stock.Application;
 
 public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-
-        services.AddMediatR(cfg =>
-              {
-                  cfg.RegisterServicesFromAssembly(typeof(ApplicationAssembly).Assembly);
-              });
-
-        services.AddValidatorsFromAssembly(typeof(ApplicationAssembly).Assembly);
-
         services.AddSingleton<IMapper>(provider =>
         {
             ILoggerFactory loggerFactory =
@@ -32,11 +21,6 @@ public static class DependencyInjection
             return configuration.CreateMapper();
         });
 
-        services.AddTransient(
-            typeof(IPipelineBehavior<,>),
-            typeof(ValidationBehaviors<,>));
-
         return services;
-
     }
 }

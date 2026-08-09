@@ -8,6 +8,9 @@ public class ProductCategoryRepository : Repository<ProductCategory>, IProductCa
     public ProductCategoryRepository(StockDbContext dbContext) : base(dbContext)
     {
     }
-    
 
+    public Task<bool> IsCategoryExistByName(string name, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }
