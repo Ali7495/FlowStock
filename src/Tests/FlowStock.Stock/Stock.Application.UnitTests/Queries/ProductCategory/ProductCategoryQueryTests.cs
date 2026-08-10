@@ -31,7 +31,7 @@ public sealed class ProductCategoryQueryTests
             new() { Name = "Jewlery" }
         });
 
-        ProductCagetoryQueryHandler handler = new(repository.Object, mapper.Object);
+        GetAllProductCagetoryQueryHandler handler = new(repository.Object, mapper.Object);
 
         GetProductCategoryQuery query = new();
 

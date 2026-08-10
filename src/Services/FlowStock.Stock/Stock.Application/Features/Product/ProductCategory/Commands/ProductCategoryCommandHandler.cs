@@ -15,10 +15,10 @@ public sealed class ProductCategoryCommandHandler : IRequestHandler<ProductCateg
         _currentUser = currentUser;
     }
 
-    public Task<Guid> Handle(ProductCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(ProductCategoryCommand request, CancellationToken cancellationToken)
     {
         ProductCategory productCategory = ProductCategory.Create(request.name);
-        _productCategoryRepository.AddAsync(productCategory, cancellationToken);
-        return Task.FromResult(Guid.NewGuid());
+        await _productCategoryRepository.AddAsync(productCategory, cancellationToken);
+        return productCategory.Id;
     }
 }
