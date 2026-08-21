@@ -33,7 +33,7 @@ public sealed class ProductCategoryQueryTests
 
         GetAllProductCagetoryQueryHandler handler = new(repository.Object, mapper.Object);
 
-        GetProductCategoryQuery query = new();
+        GetAllProductCategoryQuery query = new();
 
         //Act
 

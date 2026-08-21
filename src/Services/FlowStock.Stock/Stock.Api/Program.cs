@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using Stock.Application;
 using Stock.Infrastructure;
 
@@ -15,9 +16,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.Run();
 

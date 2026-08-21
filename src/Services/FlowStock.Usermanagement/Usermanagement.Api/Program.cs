@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Usermanagement.Application;
 using Usermanagement.Infrastructure;
