@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BuildingBlocks.Application;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -8,8 +9,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddMediatR(cfg =>
+                      {
+                          cfg.RegisterServicesFromAssembly(typeof(ApplicationAssembly).Assembly);
+                      });
+
         services.AddSingleton<IMapper>(provider =>
-        { 
+        {
             ILoggerFactory loggerFactory =
                 provider.GetRequiredService<ILoggerFactory>();
 
@@ -20,6 +26,7 @@ public static class DependencyInjection
 
             return configuration.CreateMapper();
         });
+
 
         return services;
     }

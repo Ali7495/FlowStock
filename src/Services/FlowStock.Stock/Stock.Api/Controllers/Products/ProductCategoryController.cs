@@ -1,7 +1,9 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stock.Application;
+using Stock.Infrastructure;
 
 namespace MyApp.Namespace
 {
@@ -16,6 +18,7 @@ namespace MyApp.Namespace
             _mediator = mediator;
         }
 
+        [Authorize(Policy = Policies.ProductCategoryCreate)]
         [HttpPost]
         public async Task<IActionResult> CreateProductCategory(ProductCategoryCommand productCategoryCommand, CancellationToken cancellationToken)
         {
