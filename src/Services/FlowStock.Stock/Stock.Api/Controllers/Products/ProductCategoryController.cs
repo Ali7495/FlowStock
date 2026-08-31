@@ -27,7 +27,6 @@ namespace MyApp.Namespace
             return CreatedAtAction("GetCategory",new {id}, new {id});
         }
 
-
         [HttpGet("{id}", Name = "GetCategory")]
         public async Task<IActionResult> GetCategory(Guid id, CancellationToken cancellationToken)
         {
@@ -42,6 +41,14 @@ namespace MyApp.Namespace
             List<ProductCategoryDto> productCategories = await _mediator.Send(new GetAllProductCategoryQuery(),cancellationToken);
 
             return Ok(productCategories);
+        }
+
+        [HttpPut("{id}", Name = "UpdateProductCategory")]
+        public async Task<IActionResult> UpdateProductCategory(ProductCategoryUpdateCommand updateCommand, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(updateCommand, cancellationToken);
+
+            return Ok(NoContent());
         }
     }
 }

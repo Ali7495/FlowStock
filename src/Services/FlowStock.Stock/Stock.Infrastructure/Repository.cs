@@ -35,4 +35,8 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return await Entities.FindAsync([id], cancellationToken);
     }
 
+    public void Update(TEntity entity)
+    {
+        Entities.Update(entity);
+    }
 }
