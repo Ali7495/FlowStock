@@ -27,7 +27,11 @@ public class UpdateProductCategoryHandlerTests
         
         Guid id = Guid.NewGuid();
 
-        ProductCategoryUpdateCommand productCategoryCommand = new(id,"Test2");
+        ProductCategoryUpdateCommand productCategoryCommand = new()
+        {
+            id = id,
+            name = "Test2"
+        };
 
         // Act
 

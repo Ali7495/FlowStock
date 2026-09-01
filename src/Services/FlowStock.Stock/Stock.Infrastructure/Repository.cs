@@ -20,6 +20,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         await Entities.AddAsync(entity, cancellationToken);
     }
 
+    public void Delete(TEntity entity)
+    {
+        Entities.Remove(entity);
+    }
+
     public virtual async Task<ICollection<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
         return await Entities.Where(predicate).ToListAsync(cancellationToken);

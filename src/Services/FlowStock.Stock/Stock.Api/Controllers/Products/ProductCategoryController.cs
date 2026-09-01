@@ -9,6 +9,7 @@ namespace MyApp.Namespace
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductCategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -44,9 +45,21 @@ namespace MyApp.Namespace
         }
 
         [HttpPut("{id}", Name = "UpdateProductCategory")]
-        public async Task<IActionResult> UpdateProductCategory(ProductCategoryUpdateCommand updateCommand, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateProductCategory(Guid id, ProductCategoryUpdateCommand productCategoryUpdateCommand, CancellationToken cancellationToken)
         {
-            await _mediator.Send(updateCommand, cancellationToken);
+            productCategoryUpdateCommand.id = id;
+
+            await _mediator.Send(productCategoryUpdateCommand, cancellationToken);
+
+            return Ok(NoContent());
+        }
+
+        [HttpDelete("{id}", Name ="DeleteProductCategory")]
+        public async Task<IActionResult> DeleteProductCategory(Guid id, CancellationToken cancellationToken)
+        {
+            ProductCategoryDeleteCommand productCategoryDeleteCommand = new(id);
+
+            await _mediator.Send(productCategoryDeleteCommand, cancellationToken);
 
             return Ok(NoContent());
         }

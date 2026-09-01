@@ -23,7 +23,7 @@ public sealed class ProductCategoryDeleteCommandHandler : IRequestHandler<Produc
         if (productCategory.Products is not null && productCategory.Products.Count > 0)
             throw new DomainExceptions("Has Products!");
 
-        productCategory.IsDeleted = true;
+        _repository.Delete(productCategory);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);    
     }
