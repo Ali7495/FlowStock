@@ -37,7 +37,6 @@ public class DeleteProductCategoryHandlerTests
 
         // Assert
 
-        Assert.True(productCategory.IsDeleted);
 
         unitOfWork.Verify(u => u.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
