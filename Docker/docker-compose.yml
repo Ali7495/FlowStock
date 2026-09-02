@@ -38,6 +38,19 @@ services:
     volumes:
       - redis-data:/data  
 
+  seq:
+    image: datalust/seq:latest
+    container_name: flowstock-seq
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_ADMINPASSWORD: "F@rJan9395"
+    ports:
+      - "5341:80"
+    volumes:
+      - seq-data:/data    
+
+
 volumes:
   postgres-data:
   redis-data:
+  seq-data:
