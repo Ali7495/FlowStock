@@ -1,5 +1,7 @@
 ﻿using BuildingBlocks.Application;
+using Castle.Core.Logging;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Stock.Domain;
 
@@ -23,7 +25,9 @@ public class CreateProductCategoryCommandHandlerTests
 
         unitOfWorkMock.Setup(c => c.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
-        ProductCategoryCommandHandler handler = new(categoryMock.Object,currentUser.Object,unitOfWorkMock.Object);
+        Mock<ILogger<ProductCategoryCommandHandler>> logger = new();
+
+        ProductCategoryCommandHandler handler = new(categoryMock.Object,currentUser.Object,unitOfWorkMock.Object,logger.Object);
 
         ProductCategoryCommand command = new("Gold");
 
