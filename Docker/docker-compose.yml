@@ -49,6 +49,14 @@ services:
     volumes:
       - seq-data:/data    
 
+  jaeger:
+    image: jaegertracing/jaeger:latest
+    container_name: flowstock-jaeger
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+
 
 volumes:
   postgres-data:

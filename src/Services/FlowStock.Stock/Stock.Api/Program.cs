@@ -1,11 +1,25 @@
 using BuildingBlocks.Application;
 using Microsoft.OpenApi;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
 using Serilog;
 using Stock.Application;
 using Stock.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService("FlowStock.Stock"))
+    .WithTracing(tracing =>
+    {
+        tracing
+            .AddAspNetCoreInstrumentation()
+            .AddOtlpExporter(options =>
+            {
+                options.Endpoint = new Uri("http://localhost:4317");
+            });
+    });
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
