@@ -1,5 +1,6 @@
 using BuildingBlocks.Application;
 using Microsoft.OpenApi;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Scalar.AspNetCore;
@@ -19,7 +20,15 @@ builder.Services.AddOpenTelemetry()
             {
                 options.Endpoint = new Uri("http://localhost:4317");
             });
+    })
+    .WithMetrics(metrics =>
+    {
+        metrics
+            .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddPrometheusExporter();
     });
+    
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
@@ -77,6 +86,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapPrometheusScrapingEndpoint();
 
 app.Run();
 
