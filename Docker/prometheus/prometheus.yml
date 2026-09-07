@@ -4,5 +4,6 @@ global:
 scrape_configs:
   - job_name: "flowstock-stock"
     metrics_path: /metrics
+    scheme: http
     static_configs:
       - targets: ["host.docker.internal:5144"]
