@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Domain;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Usermanagement.Domain;
 
 namespace Usermanagement.Application;
@@ -10,13 +11,16 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Gu
     private readonly IPersonRepository _personRepository;
     private readonly IPasswordService _passwordService;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<RegisterCommandHandler> _logger;
 
-    public RegisterCommandHandler(IUserRepository userRepository, IPersonRepository personRepository, IPasswordService passwordService, IUnitOfWork unitOfWork)
+    public RegisterCommandHandler(IUserRepository userRepository, IPersonRepository personRepository, IPasswordService passwordService, 
+    IUnitOfWork unitOfWork , ILogger<RegisterCommandHandler> logger)
     {
         _userRepository = userRepository;
         _personRepository = personRepository;
         _passwordService = passwordService;
         _unitOfWork = unitOfWork;
+        _logger = logger;
     }
 
     public async Task<Guid> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -32,6 +36,9 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Gu
         await _personRepository.AddAsync(person, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        _logger.LogInformation("An user with username {Username} is created for the person {FirstName} - {LastName}"
+        , request.Username,request.FirstName,request.LastName);
 
         return person.Id;
     }

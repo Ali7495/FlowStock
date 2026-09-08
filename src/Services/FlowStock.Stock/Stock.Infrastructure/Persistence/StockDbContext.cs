@@ -81,6 +81,7 @@ public class StockDbContext : DbContext
             {
                 entry.Entity.DeletedAt = DateTime.UtcNow;
                 entry.Entity.IsDeleted = true;
+                entry.State = EntityState.Modified;
             }
         }
 

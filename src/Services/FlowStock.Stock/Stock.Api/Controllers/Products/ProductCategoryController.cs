@@ -1,14 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stock.Application;
 using Stock.Infrastructure;
+
 
 namespace MyApp.Namespace
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductCategoryController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,7 +28,6 @@ namespace MyApp.Namespace
             return CreatedAtAction("GetCategory",new {id}, new {id});
         }
 
-
         [HttpGet("{id}", Name = "GetCategory")]
         public async Task<IActionResult> GetCategory(Guid id, CancellationToken cancellationToken)
         {
@@ -42,6 +42,26 @@ namespace MyApp.Namespace
             List<ProductCategoryDto> productCategories = await _mediator.Send(new GetAllProductCategoryQuery(),cancellationToken);
 
             return Ok(productCategories);
+        }
+
+        [HttpPut("{id}", Name = "UpdateProductCategory")]
+        public async Task<IActionResult> UpdateProductCategory(Guid id, ProductCategoryUpdateCommand productCategoryUpdateCommand, CancellationToken cancellationToken)
+        {
+            productCategoryUpdateCommand.id = id;
+
+            await _mediator.Send(productCategoryUpdateCommand, cancellationToken);
+
+            return Ok(NoContent());
+        }
+
+        [HttpDelete("{id}", Name ="DeleteProductCategory")]
+        public async Task<IActionResult> DeleteProductCategory(Guid id, CancellationToken cancellationToken)
+        {
+            ProductCategoryDeleteCommand productCategoryDeleteCommand = new(id);
+
+            await _mediator.Send(productCategoryDeleteCommand, cancellationToken);
+
+            return Ok(NoContent());
         }
     }
 }

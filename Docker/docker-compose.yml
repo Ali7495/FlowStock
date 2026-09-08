@@ -38,6 +38,43 @@ services:
     volumes:
       - redis-data:/data  
 
+  seq:
+    image: datalust/seq:latest
+    container_name: flowstock-seq
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_ADMINPASSWORD: "F@rJan9395"
+    ports:
+      - "5341:80"
+    volumes:
+      - seq-data:/data    
+
+  jaeger:
+    image: jaegertracing/jaeger:latest
+    container_name: flowstock-jaeger
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: flowstock-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: flowstock-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/libs/grafana
+
 volumes:
   postgres-data:
   redis-data:
+  seq-data:
+  grafana-data:
