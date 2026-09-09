@@ -1,6 +1,7 @@
 using BuildingBlocks.Application;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using OpenTelemetry.Metrics;
 using Scalar.AspNetCore;
 using Serilog;
 using Usermanagement.Application;
@@ -9,16 +10,29 @@ using Usermanagement.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenTelemetry()
-.ConfigureResource(resource => resource.AddService("FlowStock.Usermanagement"))
-.WithTracing(tracing =>
-{
-    tracing
-    .AddAspNetCoreInstrumentation()
-    .AddOtlpExporter(options =>
+    .ConfigureResource(resource => resource.AddService("FlowStock.Stock"))
+    .WithTracing(tracing =>
     {
-        options.Endpoint = new Uri("http://localhost:4317");
+        tracing
+            .AddAspNetCoreInstrumentation()
+            .AddOtlpExporter(options =>
+            {
+                options.Endpoint = new Uri("http://localhost:4317");
+            });
+    })
+    .WithMetrics(metrics =>
+    {
+        metrics
+            .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddOtlpExporter(options =>
+            {
+                options.Endpoint =
+                    new Uri("http://localhost:4317");
+            });
     });
-});
+    
+    
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
