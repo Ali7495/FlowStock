@@ -26,9 +26,13 @@ builder.Services.AddOpenTelemetry()
         metrics
             .AddAspNetCoreInstrumentation()
             .AddRuntimeInstrumentation()
-            .AddPrometheusExporter();
+            .AddOtlpExporter(options =>
+            {
+                options.Endpoint =
+                    new Uri("http://localhost:4317");
+            });
     });
-    
+
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
@@ -87,7 +91,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapPrometheusScrapingEndpoint();
 
 app.Run();
 
