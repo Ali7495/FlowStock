@@ -10,12 +10,15 @@ public class ProductConfig : IEntityTypeConfiguration<Product>
     {
         builder.ToTable("Product");
 
-        builder.HasKey(x=> x.Id);
+        builder.HasKey(x => x.Id);
 
-        builder.HasOne(x=> x.ProductCategory)
-            .WithMany(x=> x.Products)
-            .HasForeignKey(x=> x.ProductCategoryId);
+        builder.HasOne(x => x.ProductCategory)
+            .WithMany(x => x.Products)
+            .HasForeignKey(x => x.ProductCategoryId);
 
-        builder.Property(x=> x.Name).IsRequired();    
+        builder.Property(x => x.Name).IsRequired();
+
+        builder.Property(x => x.Code)
+            .HasConversion(code => code.Value, value => ProductCode.Create(value));
     }
 }
