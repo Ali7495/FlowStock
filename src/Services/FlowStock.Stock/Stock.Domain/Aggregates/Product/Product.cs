@@ -9,6 +9,7 @@ public class Product : AggregateRoot
 
     public Guid ProductCategoryId { get; set; }
     public string Name { get; set; }
+    public ProductCode Code { get; set; }
 
     public static Product Create(Guid productCategoryId, string name)
     {
