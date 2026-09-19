@@ -1,10 +1,44 @@
-﻿using Reqnroll;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Reqnroll;
+using Stock.Infrastructure;
 
 namespace Stock.Api.AcceptanceTests;
 
 [Binding]
 public sealed class CreateProductSteps
 {
+    private StockApiFactory? _factory;
+    private HttpClient? _client;
+
+    private Guid _categoryId;
+
+    [BeforeScenario]
+    public async Task PrepareTestEnvironment()
+    {
+        _factory = new StockApiFactory();
+
+        using IServiceScope scope = _factory.Services.CreateScope();
+
+        StockDbContext dbContext = scope.ServiceProvider.GetRequiredService<StockDbContext>();
+
+        if (dbContext.Database.GetDbConnection().Database != "StockAcceptanceTestsDb")
+        {
+            throw new InvalidOperationException("Unexpected database for acceptance tests!");
+        }
+
+        await dbContext.Database.MigrateAsync();
+
+        _client = _factory.CreateClient();
+    }
+
+    [AfterScenario]
+    public async Task DisposeTestEnvironment()
+    {
+        _factory?.Dispose();
+        _client?.Dispose();
+    }
+
     [Given("an active product category exists")]
     public Task AnActiveProductCategoryExists()
     {
