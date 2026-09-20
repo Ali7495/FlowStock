@@ -39,7 +39,7 @@ public class UpdateProductCategoryHandlerTests
 
         // Assert
 
-        //repository.Verify(c=> c.Update(It.IsAny<ProductCategory>()),Times.Once);
+        repository.Verify(c=> c.Update(It.IsAny<ProductCategory>()),Times.Once);
         unitOfWork.Verify(c=> c.SaveChangesAsync(It.IsAny<CancellationToken>()),Times.Once);
     }
 }
