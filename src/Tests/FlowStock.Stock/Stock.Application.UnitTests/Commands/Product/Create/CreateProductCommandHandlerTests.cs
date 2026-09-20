@@ -12,23 +12,23 @@ public class CreateProductCommandHandlerTests
     public async Task Should_Create_Product_When_Command_Is_Valid()
     {
         //Arrange
-        Mock<IProductRepository> productMock = new();
+        Guid categoryId = Guid.NewGuid();
+        Guid personId = Guid.NewGuid();
 
-        productMock.Setup(x=> x.IsProductCategoryValid("Mobile",It.IsAny<CancellationToken>())).ReturnsAsync(true);
+        Mock<IProductRepository> productRepository = new();
+        productRepository.Setup(x => x.IsProductCategoryValid(categoryId, It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
         Mock<ICurrentUser> currentUser = new();
-
-        currentUser.Setup(x=> x.PersonId).Returns(Guid.NewGuid());
+        currentUser.Setup(x => x.PersonId).Returns(personId);
 
         Mock<IUnitOfWork> unitOfWork = new();
-
-        unitOfWork.Setup(x=> x.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
+        unitOfWork.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
         Mock<ILogger<ProductCommandHandler>> logger = new();
 
-        ProductCommandHandler handler = new(productMock.Object, currentUser.Object, logger.Object);
+        ProductCommandHandler handler = new(productRepository.Object, unitOfWork.Object, currentUser.Object, logger.Object);
 
-        ProductCommand command = new("Samsung");
+        ProductCommand command = new(categoryId, "Samsung");
 
         //Act
 
@@ -36,7 +36,13 @@ public class CreateProductCommandHandlerTests
 
         // Assert
 
-        productMock.Verify(x=> x.AddAsync(It.IsAny<Product>(),It.IsAny<CancellationToken>()),Times.Once);
+        productRepository.Verify(
+            x => x.AddAsync(
+                It.Is<Product>(p => p.ProductCategoryId == categoryId && p.Name == "Samsung"), It.IsAny<CancellationToken>()
+                ),
+            Times.Once);
+
+        unitOfWork.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
 
     }
 }
