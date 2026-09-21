@@ -18,25 +18,25 @@ public class ProductQueryTests
         [
             Product.Create(categoryId, "Apple"),
             Product.Create(categoryId, "Sony"),
-            Product.Create(categoryId, "Motorola")
+            Product.Create(categoryId, "Xiaomi")
         ];
 
         List<ProductDto> expectedDtos =
         [
             new() { Name = "Apple" },
             new() { Name = "Sony" },
-            new() { Name = "Motorola" }
+            new() { Name = "Xiaomi" }
         ];
 
         Mock<IProductRepository> productRepository = new();
-        productRepository.Setup(x=> x.GetProductsByCategoryIdAsync(categoryId, It.IsAny<CancellationToken>())).ReturnsAsync(products);
+        productRepository.Setup(x=> x.GetListByCategoryIdAsync(categoryId, It.IsAny<CancellationToken>())).ReturnsAsync(products);
 
         Mock<IMapper> mapper = new();
-        mapper.Setup(x=> x.Map<List<ProductDto>>(products)).Returns(new List<expectedDtos>
+        mapper.Setup(x=> x.Map<List<ProductDto>>(products)).Returns(new List<ProductDto>
         {
             new() {Name = "Apple"},
             new() {Name = "Sony"},
-            new() {Name = "Motorolla"}
+            new() {Name = "Xiaomi"}
         });
 
         GetProductByCategoryIdHandler handler = new(productRepository.Object, mapper.Object);
@@ -53,7 +53,7 @@ public class ProductQueryTests
         result.Should().HaveCount(3);
         result.Should().BeEquivalentTo(expectedDtos);
 
-        productRepository.Verify(x=> x.GetProductsByCategoryIdAsync(categoryId,It.IsAny<CancellationToken>()), Times.Once);
+        productRepository.Verify(x=> x.GetListByCategoryIdAsync(categoryId,It.IsAny<CancellationToken>()), Times.Once);
         mapper.Verify(
             x => x.Map<List<ProductDto>>(products),
             Times.Once);
