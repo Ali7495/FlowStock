@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Application;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Stock.Domain;
 
@@ -29,7 +30,9 @@ public class UpdateProductCommandHandlerTests
         Mock<ICurrentUser> currentUser = new();
         currentUser.Setup(r => r.PersonId).Returns(personId);
 
-        ProductUpdateCommandHandler handler = new(productRepository.Object, unitOfWork.Object, currentUser.Object);
+        Mock<ILogger<ProductUpdateCommandHandler>> logger = new();
+
+        ProductUpdateCommandHandler handler = new(productRepository.Object, unitOfWork.Object, currentUser.Object, logger.Object);
 
         ProductUpdateCommand command = new(productId, categoryId, "Apple");
 

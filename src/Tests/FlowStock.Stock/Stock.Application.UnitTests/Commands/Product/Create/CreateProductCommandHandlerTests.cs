@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Application;
 using Castle.Core.Logging;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Stock.Domain;
 
