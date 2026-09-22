@@ -16,16 +16,16 @@ public class ProductQueryTests
 
          List<Product> products =
         [
-            Product.Create(categoryId, "Apple"),
-            Product.Create(categoryId, "Sony"),
-            Product.Create(categoryId, "Xiaomi")
+            Product.Create(categoryId, "Apple", ProductCode.CreateBySequence(4)),
+            Product.Create(categoryId, "Sony", ProductCode.CreateBySequence(5)),
+            Product.Create(categoryId, "Xiaomi", ProductCode.CreateBySequence(6))
         ];
 
         List<ProductDto> expectedDtos =
         [
-            new() { Name = "Apple" },
-            new() { Name = "Sony" },
-            new() { Name = "Xiaomi" }
+            new() {Name = "Apple", Code = ProductCode.CreateBySequence(4).ToString()},
+            new() {Name = "Sony", Code = ProductCode.CreateBySequence(5).ToString()},
+            new() {Name = "Xiaomi", Code = ProductCode.CreateBySequence(6).ToString()}
         ];
 
         Mock<IProductRepository> productRepository = new();
@@ -34,9 +34,9 @@ public class ProductQueryTests
         Mock<IMapper> mapper = new();
         mapper.Setup(x=> x.Map<List<ProductDto>>(products)).Returns(new List<ProductDto>
         {
-            new() {Name = "Apple"},
-            new() {Name = "Sony"},
-            new() {Name = "Xiaomi"}
+            new() {Name = "Apple", Code = ProductCode.CreateBySequence(4).ToString()},
+            new() {Name = "Sony", Code = ProductCode.CreateBySequence(5).ToString()},
+            new() {Name = "Xiaomi", Code = ProductCode.CreateBySequence(6).ToString()}
         });
 
         GetProductByCategoryIdHandler handler = new(productRepository.Object, mapper.Object);

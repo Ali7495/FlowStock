@@ -11,12 +11,13 @@ public class Product : AggregateRoot
     public string Name { get; set; }
     public ProductCode Code { get; set; }
 
-    public static Product Create(Guid productCategoryId, string name)
+    public static Product Create(Guid productCategoryId, string name, ProductCode code)
     {
         return new()
         {
             ProductCategoryId = productCategoryId,
-            Name = name
+            Name = name,
+            Code = code
         };
     }
 

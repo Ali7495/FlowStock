@@ -16,8 +16,13 @@ public class CreateProductCommandHandlerTests
         Guid categoryId = Guid.NewGuid();
         Guid personId = Guid.NewGuid();
 
+        ProductCode expectedCode = ProductCode.CreateBySequence(3);
+
         Mock<IProductRepository> productRepository = new();
         productRepository.Setup(x => x.IsProductCategoryValid(categoryId, It.IsAny<CancellationToken>())).ReturnsAsync(true);
+
+        Mock<ICodeGenerator<ProductCode>> codeGenerator = new();
+        codeGenerator.Setup(x => x.GenerateCodeAsync(It.IsAny<CancellationToken>())).ReturnsAsync(expectedCode);
 
         Mock<ICurrentUser> currentUser = new();
         currentUser.Setup(x => x.PersonId).Returns(personId);
@@ -27,7 +32,7 @@ public class CreateProductCommandHandlerTests
 
         Mock<ILogger<ProductCommandHandler>> logger = new();
 
-        ProductCommandHandler handler = new(productRepository.Object, unitOfWork.Object, currentUser.Object, logger.Object);
+        ProductCommandHandler handler = new(productRepository.Object, codeGenerator.Object, unitOfWork.Object, currentUser.Object, logger.Object);
 
         ProductCommand command = new(categoryId, "Samsung");
 
@@ -37,9 +42,14 @@ public class CreateProductCommandHandlerTests
 
         // Assert
 
+        codeGenerator.Verify(
+    x => x.GenerateCodeAsync(
+        It.IsAny<CancellationToken>()),
+    Times.Once);
+
         productRepository.Verify(
             x => x.AddAsync(
-                It.Is<Product>(p => p.ProductCategoryId == categoryId && p.Name == "Samsung"), It.IsAny<CancellationToken>()
+                It.Is<Product>(p => p.ProductCategoryId == categoryId && p.Name == "Samsung" && p.Code == expectedCode), It.IsAny<CancellationToken>()
                 ),
             Times.Once);
 

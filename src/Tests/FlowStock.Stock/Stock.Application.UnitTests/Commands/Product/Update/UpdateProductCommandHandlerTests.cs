@@ -17,7 +17,10 @@ public class UpdateProductCommandHandlerTests
         Guid personId = Guid.NewGuid();
         Guid productId = Guid.NewGuid();
 
-        Product product = Product.Create(categoryId, "Samsung");
+
+        ProductCode expectedCode = ProductCode.CreateBySequence(3);
+
+        Product product = Product.Create(categoryId, "Samsung", expectedCode);
 
         product.Id = productId;
 
@@ -45,7 +48,9 @@ public class UpdateProductCommandHandlerTests
         product.Name.Should().Be("Apple");
         product.ProductCategoryId.Should().Be(categoryId);
         productRepository.Verify(x=> x.GetByIdAsync(productId, It.IsAny<CancellationToken>()),Times.Once);
-        productRepository.Verify(x => x.Update(It.Is<Product>(p=> p.Id == productId && p.Name == "Apple" && p.ProductCategoryId == categoryId)), Times.Once);
+        productRepository.Verify(x => 
+            x.Update(It.Is<Product>(p=> p.Id == productId && p.Name == "Apple" && p.ProductCategoryId == categoryId && p.Code == expectedCode))
+                , Times.Once);
         unitOfWork.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 }

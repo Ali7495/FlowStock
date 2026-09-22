@@ -8,12 +8,15 @@ namespace Stock.Application;
 public sealed class ProductCommandHandler : IRequestHandler<ProductCommand, Guid>
 {
     private readonly IProductRepository _productRepository;
+    private readonly ICodeGenerator<ProductCode> _codeGenerator;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICurrentUser _currentUser;
     private readonly ILogger<ProductCommandHandler> _logger;
-    public ProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork, ICurrentUser currentUser, ILogger<ProductCommandHandler> logger)
+    public ProductCommandHandler(IProductRepository productRepository, ICodeGenerator<ProductCode> codeGenerator,  IUnitOfWork unitOfWork
+            , ICurrentUser currentUser, ILogger<ProductCommandHandler> logger)
     {
         _productRepository = productRepository;
+        _codeGenerator = codeGenerator;
         _unitOfWork = unitOfWork;
         _currentUser = currentUser;
         _logger = logger;
@@ -21,7 +24,9 @@ public sealed class ProductCommandHandler : IRequestHandler<ProductCommand, Guid
 
     public async Task<Guid> Handle(ProductCommand request, CancellationToken cancellationToken)
     {
-        Product product = Product.Create(request.categoryId, request.productName);
+        ProductCode productCode = await _codeGenerator.GenerateCodeAsync(cancellationToken);
+
+        Product product = Product.Create(request.categoryId, request.productName, productCode);
 
         await _productRepository.AddAsync(product, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
