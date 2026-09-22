@@ -19,6 +19,9 @@ public class ProductConfig : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Name).IsRequired();
 
         builder.Property(x => x.Code)
-            .HasConversion(code => code.Value, value => ProductCode.Create(value));
+            .HasConversion(code => code.Value, value => ProductCode.Create(value))
+            .IsRequired();
+
+        builder.HasIndex(x=> x.Code).IsUnique();       
     }
 }

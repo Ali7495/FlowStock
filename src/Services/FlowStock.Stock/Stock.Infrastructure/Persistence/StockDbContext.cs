@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Stock.Application;
 using Stock.Domain;
 
 namespace Stock.Infrastructure;
@@ -56,6 +57,12 @@ public class StockDbContext : DbContext
         modelBuilder.Entity<Customer>().HasIndex(c => c.PersonId);
         modelBuilder.Entity<Payment>().HasIndex(p => p.PaymentCode);
         modelBuilder.Entity<Invoice>().HasIndex(i => i.InvoiceCode);
+
+        #endregion
+
+        #region Objects
+
+        modelBuilder.HasSequence<long>(SequenceNames.ProductCode).StartsAt(1).IncrementsBy(1);
 
         #endregion
     }

@@ -2,18 +2,29 @@ using BuildingBlocks.Domain;
 
 public sealed record ProductCode
 {
-    public string Value { get; set; }
+    public string Value { get; }
 
     public ProductCode(string value)
     {
         Value = value;
     }
 
-    public static ProductCode Create(string code)
+    public static ProductCode CreateBySequence(long sequence)
     {
-        if (string.IsNullOrWhiteSpace(code))
-            throw new DomainExceptions("The code can not be null!");
+        if (sequence <= 0)
+        {
+            throw new DomainExceptions("Sequence must be greater than 0 !");
+        }
 
-        return new(code);    
+        return new($"PRD-{sequence:D6}");
+    }
+
+    public static ProductCode Create(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            throw new DomainExceptions(
+                "Product code cannot be empty.");
+
+        return new ProductCode(value);
     }
 }

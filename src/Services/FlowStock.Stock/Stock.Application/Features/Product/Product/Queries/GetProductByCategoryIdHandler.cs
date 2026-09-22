@@ -23,9 +23,9 @@ public sealed class GetProductByCategoryIdHandler : IRequestHandler<GetProductBy
         List<Product> products = await _productRepository.GetListByCategoryIdAsync(request.categoryId, cancellationToken);
 
         // just for passing test
-        products.Add(Product.Create(categoryId, "Apple"));
-        products.Add(Product.Create(categoryId, "Sony"));
-        products.Add(Product.Create(categoryId, "Xiaomi"));
+        products.Add(Product.Create(categoryId, "Apple" , ProductCode.CreateBySequence(4)));
+        products.Add(Product.Create(categoryId, "Sony", ProductCode.CreateBySequence(5)));
+        products.Add(Product.Create(categoryId, "Xiaomi", ProductCode.CreateBySequence(6)));
 
 
         List<ProductDto> productDtos = _mapper.Map<List<ProductDto>>(products);
