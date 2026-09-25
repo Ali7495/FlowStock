@@ -3,5 +3,6 @@
 public interface IProductCategoryRepository : IRepository<ProductCategory>
 {
     Task<bool> IsCategoryExistByName(string name, CancellationToken cancellationToken);
+    Task<bool> IsCategoryExistById(Guid categoryId, CancellationToken cancellationToken);
     Task<ProductCategory> GetWithProductsById(Guid id, CancellationToken cancellationToken);
 }

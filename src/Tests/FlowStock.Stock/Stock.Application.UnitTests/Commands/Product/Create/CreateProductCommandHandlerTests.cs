@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Application;
 using Castle.Core.Logging;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Stock.Domain;
@@ -18,8 +19,8 @@ public class CreateProductCommandHandlerTests
 
         ProductCode expectedCode = ProductCode.CreateBySequence(3);
 
-        Mock<IProductRepository> productRepository = new();
-        productRepository.Setup(x => x.IsProductCategoryValid(categoryId, It.IsAny<CancellationToken>())).ReturnsAsync(true);
+        Mock<IProductCategoryRepository> categoryRepository = new();
+        categoryRepository.Setup(x => x.IsCategoryExistById(categoryId, It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
         Mock<ICodeGenerator<ProductCode>> codeGenerator = new();
         codeGenerator.Setup(x => x.GenerateCodeAsync(It.IsAny<CancellationToken>())).ReturnsAsync(expectedCode);
@@ -27,12 +28,15 @@ public class CreateProductCommandHandlerTests
         Mock<ICurrentUser> currentUser = new();
         currentUser.Setup(x => x.PersonId).Returns(personId);
 
+        Mock<IProductRepository> productRepository = new();
+        productRepository.Setup(x => x.AddAsync(It.IsAny<Product>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
+
         Mock<IUnitOfWork> unitOfWork = new();
         unitOfWork.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
         Mock<ILogger<ProductCommandHandler>> logger = new();
 
-        ProductCommandHandler handler = new(productRepository.Object, codeGenerator.Object, unitOfWork.Object, currentUser.Object, logger.Object);
+        ProductCommandHandler handler = new(productRepository.Object, codeGenerator.Object, unitOfWork.Object, currentUser.Object, logger.Object, categoryRepository.Object);
 
         ProductCommand command = new(categoryId, "Samsung");
 
@@ -42,10 +46,14 @@ public class CreateProductCommandHandlerTests
 
         // Assert
 
+        id.Should().NotBeEmpty();
+
         codeGenerator.Verify(
     x => x.GenerateCodeAsync(
         It.IsAny<CancellationToken>()),
     Times.Once);
+
+        categoryRepository.Verify(x => x.IsCategoryExistById(categoryId, It.IsAny<CancellationToken>()), Times.Once);
 
         productRepository.Verify(
             x => x.AddAsync(

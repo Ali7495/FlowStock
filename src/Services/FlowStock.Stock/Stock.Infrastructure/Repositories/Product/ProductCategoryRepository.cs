@@ -15,6 +15,11 @@ public class ProductCategoryRepository : Repository<ProductCategory>, IProductCa
         return await Entities.AsNoTracking().Include(p => p.Products).FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 
+    public async Task<bool> IsCategoryExistById(Guid categoryId, CancellationToken cancellationToken)
+    {
+        return await Entities.AnyAsync(p => p.Id == categoryId, cancellationToken);
+    }
+
     public async Task<bool> IsCategoryExistByName(string name, CancellationToken cancellationToken)
     {
         return await Entities.AnyAsync(p => p.Name == name, cancellationToken);

@@ -14,8 +14,4 @@ public class ProductRepository : Repository<Product>, IProductRepository
         return await Entities.Where(p=> p.ProductCategoryId == categoryId).ToListAsync(cancellationToken);
     }
 
-    public Task<bool> IsProductCategoryValid(Guid categoryId, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
 }
