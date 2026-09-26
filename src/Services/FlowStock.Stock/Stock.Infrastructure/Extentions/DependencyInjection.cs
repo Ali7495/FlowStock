@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.CodeDom.Compiler;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,8 @@ public static class DependencyInjection
         services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<ICodeGenerator<ProductCode>, ProductCodeGenerator>();
+        services.AddScoped<ISequenceGenerator, SequenceGenerator>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddJwtAuthentication(configuration);
