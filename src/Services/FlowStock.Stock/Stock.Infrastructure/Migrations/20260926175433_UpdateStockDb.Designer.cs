@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Stock.Infrastructure;
@@ -11,9 +12,11 @@ using Stock.Infrastructure;
 namespace Stock.Infrastructure.Migrations
 {
     [DbContext(typeof(StockDbContext))]
-    partial class StockDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260926175433_UpdateStockDb")]
+    partial class UpdateStockDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
