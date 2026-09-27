@@ -14,6 +14,11 @@ public class ProductRepository : Repository<Product>, IProductRepository
         return await Entities.Where(p=> p.ProductCategoryId == categoryId).ToListAsync(cancellationToken);
     }
 
+    public async Task<Product> GetProductWithCategoryById(Guid id, CancellationToken cancellationToken)
+    {
+        return await Entities.Include(p=> p.ProductCategory).FirstOrDefaultAsync(p=> p.Id == id, cancellationToken);
+    }
+
     public async Task<Product> GetProductWithChildrenByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await Entities
