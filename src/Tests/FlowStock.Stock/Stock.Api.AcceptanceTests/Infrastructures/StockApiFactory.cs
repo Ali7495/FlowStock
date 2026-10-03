@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Stock.Api.AcceptanceTests;
 
@@ -39,6 +40,12 @@ public sealed class StockApiFactory : WebApplicationFactory<Program>
            {
                options.UseNpgsql(connectionString);
            });
+
+           services.AddAuthentication(options=>
+           {
+               options.DefaultAuthenticateScheme = TestAuthHandler.SchemeName;
+               options.DefaultChallengeScheme = TestAuthHandler.SchemeName;
+           }).AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.SchemeName, _ => {});
        });
     }
 }

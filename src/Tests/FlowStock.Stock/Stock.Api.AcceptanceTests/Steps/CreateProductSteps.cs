@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Reqnroll;
+using Stock.Domain;
 using Stock.Infrastructure;
 
 namespace Stock.Api.AcceptanceTests;
@@ -8,10 +9,15 @@ namespace Stock.Api.AcceptanceTests;
 [Binding]
 public sealed class CreateProductSteps
 {
-    private StockApiFactory? _factory;
-    private HttpClient? _client;
+    private StockApiFactory? _factory = null;
+    private HttpClient? _client = null;
+    private HttpResponseMessage _response = null;
 
     private Guid _categoryId;
+    private Guid _createdProductId;
+    private string _productName = null;
+
+    private readonly HashSet<string> _existingCodes = [];
 
     [BeforeScenario]
     public async Task PrepareTestEnvironment()
@@ -29,6 +35,11 @@ public sealed class CreateProductSteps
 
         await dbContext.Database.MigrateAsync();
 
+        await dbContext.Set<Product>().IgnoreQueryFilters().ExecuteDeleteAsync();
+        await dbContext.Set<ProductCategory>().IgnoreQueryFilters().ExecuteDeleteAsync();
+
+        await dbContext.Database.ExecuteSqlRawAsync("ALTER SEQUENCE product_code_seq RESTART WITH 1");
+
         _client = _factory.CreateClient();
     }
 
@@ -37,12 +48,23 @@ public sealed class CreateProductSteps
     {
         _factory?.Dispose();
         _client?.Dispose();
+        _response?.Dispose();
     }
 
     [Given("an active product category exists")]
-    public Task AnActiveProductCategoryExists()
+    public async Task AnActiveProductCategoryExists()
     {
-        throw new PendingStepException();
+        ProductCategory productCategory = ProductCategory.Create($"Acceptance Category {Guid.NewGuid():N}");
+
+        using IServiceScope serviceScope = _factory.Services.CreateScope();
+
+        StockDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<StockDbContext>();
+
+        await dbContext.Set<ProductCategory>().AddAsync(productCategory);
+
+        await dbContext.SaveChangesAsync();
+
+        _categoryId = productCategory.Id;
     }
 
     [Given("the current user has permission to create products")]
