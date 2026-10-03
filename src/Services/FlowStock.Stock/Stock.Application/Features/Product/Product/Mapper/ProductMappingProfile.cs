@@ -6,6 +6,7 @@ public class ProductMappingProfile : Profile
 {
     public ProductMappingProfile()
     {
-        CreateMap<Product, ProductDto>();
+        CreateMap<Product, ProductDto>()
+            .ForMember(p => p.CategoryName, dest => dest.MapFrom(src => src.ProductCategory.Name));
     }
 }

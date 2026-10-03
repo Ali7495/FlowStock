@@ -24,8 +24,7 @@ namespace Stock.Api.AcceptanceTests.Features.Product
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/Product", "Create product", "    In order to manage products available in stock\r\n    As an authorized stock ma" +
-                "nager\r\n    I want to create a product in a product category", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features/Product", "Create product", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
         private global::Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -104,6 +103,15 @@ namespace Stock.Api.AcceptanceTests.Features.Product
             await testRunner.CollectScenarioErrorsAsync();
         }
         
+        public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
+        {
+#line 3
+  #line hidden
+#line 4
+    await testRunner.GivenAsync("the current user has permission to create products", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+        }
+        
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
             return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Product/CreateProduct.feature.ndjson", 5);
@@ -144,9 +152,9 @@ namespace Stock.Api.AcceptanceTests.Features.Product
             string pickleIndex = "0";
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Create a product with valid information", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
-            global::Reqnroll.RuleInfo ruleInfo = new global::Reqnroll.RuleInfo("A product must belong to an active category", null, tagsOfRule);
-#line 9
-    this.ScenarioInitialize(scenarioInfo, ruleInfo);
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 6
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -155,38 +163,38 @@ namespace Stock.Api.AcceptanceTests.Features.Product
             else
             {
                 await this.ScenarioStartAsync();
+#line 3
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 7
+    await testRunner.GivenAsync("an active product category exists", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 8
+    await testRunner.WhenAsync("the user creates a product in that category", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 9
+    await testRunner.ThenAsync("the product should be created successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
 #line 10
-      await testRunner.GivenAsync("an active product category exists", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-#line 11
-      await testRunner.AndAsync("the current user has permission to create products", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 12
-      await testRunner.WhenAsync("the user creates a product in that category", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 13
-      await testRunner.ThenAsync("the product should be created successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 14
-      await testRunner.AndAsync("the created product identifier should be returned", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.AndAsync("the created product identifier should be returned", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
-        [global::Xunit.SkippableFactAttribute(DisplayName="Create a product for a nonexistent category")]
+        [global::Xunit.SkippableFactAttribute(DisplayName="Creating a product for nonexistent category")]
         [global::Xunit.TraitAttribute("FeatureTitle", "Create product")]
-        [global::Xunit.TraitAttribute("Description", "Create a product for a nonexistent category")]
-        public async global::System.Threading.Tasks.Task CreateAProductForANonexistentCategory()
+        [global::Xunit.TraitAttribute("Description", "Creating a product for nonexistent category")]
+        public async global::System.Threading.Tasks.Task CreatingAProductForNonexistentCategory()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "1";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Create a product for a nonexistent category", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Creating a product for nonexistent category", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
-            global::Reqnroll.RuleInfo ruleInfo = new global::Reqnroll.RuleInfo("A product must belong to an active category", null, tagsOfRule);
-#line 16
-    this.ScenarioInitialize(scenarioInfo, ruleInfo);
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 12
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -195,20 +203,20 @@ namespace Stock.Api.AcceptanceTests.Features.Product
             else
             {
                 await this.ScenarioStartAsync();
-#line 17
-      await testRunner.GivenAsync("the selected product category does not exist", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 3
+  await this.FeatureBackgroundAsync();
 #line hidden
-#line 18
-      await testRunner.AndAsync("the current user has permission to create products", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 13
+    await testRunner.GivenAsync("the selected product category does not exist", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 19
-      await testRunner.WhenAsync("the user creates a product in that category", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 14
+    await testRunner.WhenAsync("the user creates a product in that category", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 20
-      await testRunner.ThenAsync("product creation should be rejected", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line 15
+    await testRunner.ThenAsync("product creation should be rejected", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 21
-      await testRunner.AndAsync("no product should be stored", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 16
+    await testRunner.AndAsync("no product should be stored", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -225,7 +233,7 @@ namespace Stock.Api.AcceptanceTests.Features.Product
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("A unique code is assigned when a product is created", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = new global::Reqnroll.RuleInfo("Every product must have a unique code", null, tagsOfRule);
-#line 25
+#line 20
     this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -235,22 +243,28 @@ namespace Stock.Api.AcceptanceTests.Features.Product
             else
             {
                 await this.ScenarioStartAsync();
+#line 3
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 21
+      await testRunner.GivenAsync("an active product category exists", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
                 global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
                             "Code"});
                 table1.AddRow(new string[] {
                             "PRD-000001"});
                 table1.AddRow(new string[] {
                             "PRD-000002"});
-#line 26
-      await testRunner.GivenAsync("products with the following codes already exist", ((string)(null)), table1, "Given ");
+#line 22
+      await testRunner.AndAsync("products with the following codes already exist", ((string)(null)), table1, "And ");
 #line hidden
-#line 30
+#line 26
       await testRunner.WhenAsync("a new product is created", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 31
+#line 27
       await testRunner.ThenAsync("a code should be assigned to the new product", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 32
+#line 28
       await testRunner.AndAsync("the generated code should not match any existing product code", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

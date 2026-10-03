@@ -6,4 +6,5 @@ public static class Policies
 
     public const string ProductCategoryCreate = nameof(ProductCategoryCreate);
     public const string ProductCategoryGetById = nameof(ProductCategoryGetById);
+    public const string ProductCreate = nameof(ProductCreate);
 }
