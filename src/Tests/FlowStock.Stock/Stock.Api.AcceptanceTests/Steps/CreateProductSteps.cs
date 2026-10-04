@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Net.Http.Json;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Reqnroll;
+using Stock.Application;
 using Stock.Domain;
 using Stock.Infrastructure;
 
@@ -16,8 +19,6 @@ public sealed class CreateProductSteps
     private Guid _categoryId;
     private Guid _createdProductId;
     private string _productName = null;
-
-    private readonly HashSet<string> _existingCodes = [];
 
     [BeforeScenario]
     public async Task PrepareTestEnvironment()
@@ -44,7 +45,7 @@ public sealed class CreateProductSteps
     }
 
     [AfterScenario]
-    public async Task DisposeTestEnvironment()
+    public void DisposeTestEnvironment()
     {
         _factory?.Dispose();
         _client?.Dispose();
@@ -70,67 +71,81 @@ public sealed class CreateProductSteps
     [Given("the current user has permission to create products")]
     public Task TheCurrentUserHasPermissionToCreateProducts()
     {
-        throw new PendingStepException();
+        _client?.DefaultRequestHeaders.Remove("X-Test-UserId");
+        _client?.DefaultRequestHeaders.Remove("X-Test-Permission");
+
+        _client?.DefaultRequestHeaders.Add("X-Test-UserId", Guid.NewGuid().ToString());
+        _client?.DefaultRequestHeaders.Add("X-Test-Permission",Permissions.ProductCreate);
+
+        return Task.CompletedTask;
+
     }
 
     [When("the user creates a product in that category")]
-    public Task WhenTheUserCreatesAProductInThatCategory()
+    public async Task WhenTheUserCreatesAProductInThatCategory()
     {
-        throw new PendingStepException();
+        _productName = $"Acceptance Product {Guid.NewGuid():N}";
+
+        ProductCommand productCommand = new(_categoryId, _productName);
+
+        _response = await _client.PostAsJsonAsync("/api/Product",productCommand);
+
+        if (_response.IsSuccessStatusCode)
+        {
+            Guid? id = await _response.Content.ReadFromJsonAsync<Guid>();
+
+            _createdProductId = id.GetValueOrDefault();
+        }
     }
 
     [Then("the product should be created successfully")]
-    public void ThenTheProductShouldBeCreatedSuccessfully()
-    {
-        throw new PendingStepException();
-    }
+public async Task ThenTheProductShouldBeCreatedSuccessfully()
+{
+    string responseBody =
+        await _response.Content.ReadAsStringAsync();
+
+    _response.StatusCode.Should().Be(
+        System.Net.HttpStatusCode.Created,
+        $"API response was: {responseBody}");
+}
 
     [Then("the created product identifier should be returned")]
-    public Task ThenTheCreatedProductIdentifierShouldBeReturned()
+    public async Task ThenTheCreatedProductIdentifierShouldBeReturned()
     {
-        throw new PendingStepException();
+        _createdProductId.Should().NotBeEmpty();
+
+        using IServiceScope scope = _factory.Services.CreateScope();
+
+        StockDbContext dbContext = scope.ServiceProvider.GetRequiredService<StockDbContext>();
+
+        bool isProductExist = await dbContext.Set<Product>().AnyAsync(p=> p.Id == _createdProductId && p.ProductCategoryId == _categoryId && p.Name == _productName);
+
+        isProductExist.Should().BeTrue();
     }
 
     [Given("the selected product category does not exist")]
     public void GivenTheSelectedProductCategoryDoesNotExist()
     {
-        throw new PendingStepException();
+        _categoryId = Guid.NewGuid();
     }
 
     [Then("product creation should be rejected")]
     public void ThenProductCreationShouldBeRejected()
     {
-        throw new PendingStepException();
+        _response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
     }
 
     [Then("no product should be stored")]
-    public Task ThenNoProductShouldBeStored()
+    public async Task ThenNoProductShouldBeStored()
     {
-        throw new PendingStepException();
+        using IServiceScope scope = _factory.Services.CreateScope();
+
+        StockDbContext dbContext = scope.ServiceProvider.GetRequiredService<StockDbContext>();
+
+        bool isProductExist = await dbContext.Set<Product>().AnyAsync(p=> p.ProductCategoryId == _categoryId && p.Name == _productName);
+
+        isProductExist.Should().BeFalse();
     }
 
-    [Given("products with the following codes already exist")]
-    public Task GivenProductsWithTheFollowingCodesAlreadyExist(
-        DataTable table)
-    {
-        throw new PendingStepException();
-    }
-
-    [When("a new product is created")]
-    public Task WhenANewProductIsCreated()
-    {
-        throw new PendingStepException();
-    }
-
-    [Then("a code should be assigned to the new product")]
-    public Task ThenACodeShouldBeAssignedToTheNewProduct()
-    {
-        throw new PendingStepException();
-    }
-
-    [Then("the generated code should not match any existing product code")]
-    public Task ThenTheGeneratedCodeShouldNotMatchAnyExistingProductCode()
-    {
-        throw new PendingStepException();
-    }
+    
 }

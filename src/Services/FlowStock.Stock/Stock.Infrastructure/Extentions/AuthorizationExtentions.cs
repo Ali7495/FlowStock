@@ -19,6 +19,11 @@ public static class AuthorizationExtentions
                 Policies.ProductCategoryCreate,
                 policy => policy.AddRequirements(new PermissionRequirement(Permissions.ProductCategoryCreate))
             );
+
+            options.AddPolicy(
+                Policies.ProductCreate,
+                policy => policy.AddRequirements(new PermissionRequirement(Permissions.ProductCreate))
+            );
         });
 
         return services;
