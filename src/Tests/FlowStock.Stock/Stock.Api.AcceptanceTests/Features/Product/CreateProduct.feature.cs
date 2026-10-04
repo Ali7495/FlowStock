@@ -114,7 +114,7 @@ namespace Stock.Api.AcceptanceTests.Features.Product
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Product/CreateProduct.feature.ndjson", 5);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Product/CreateProduct.feature.ndjson", 4);
         }
         
         async global::System.Threading.Tasks.Task global::Xunit.IAsyncLifetime.InitializeAsync()
@@ -217,55 +217,6 @@ namespace Stock.Api.AcceptanceTests.Features.Product
 #line hidden
 #line 16
     await testRunner.AndAsync("no product should be stored", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [global::Xunit.SkippableFactAttribute(DisplayName="A unique code is assigned when a product is created")]
-        [global::Xunit.TraitAttribute("FeatureTitle", "Create product")]
-        [global::Xunit.TraitAttribute("Description", "A unique code is assigned when a product is created")]
-        public async global::System.Threading.Tasks.Task AUniqueCodeIsAssignedWhenAProductIsCreated()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            string pickleIndex = "2";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("A unique code is assigned when a product is created", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
-            string[] tagsOfRule = ((string[])(null));
-            global::Reqnroll.RuleInfo ruleInfo = new global::Reqnroll.RuleInfo("Every product must have a unique code", null, tagsOfRule);
-#line 20
-    this.ScenarioInitialize(scenarioInfo, ruleInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                await testRunner.SkipScenarioAsync();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 3
-  await this.FeatureBackgroundAsync();
-#line hidden
-#line 21
-      await testRunner.GivenAsync("an active product category exists", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
-#line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
-                            "Code"});
-                table1.AddRow(new string[] {
-                            "PRD-000001"});
-                table1.AddRow(new string[] {
-                            "PRD-000002"});
-#line 22
-      await testRunner.AndAsync("products with the following codes already exist", ((string)(null)), table1, "And ");
-#line hidden
-#line 26
-      await testRunner.WhenAsync("a new product is created", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 27
-      await testRunner.ThenAsync("a code should be assigned to the new product", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 28
-      await testRunner.AndAsync("the generated code should not match any existing product code", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
