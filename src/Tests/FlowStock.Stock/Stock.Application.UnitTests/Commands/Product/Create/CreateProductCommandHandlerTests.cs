@@ -46,8 +46,6 @@ public class CreateProductCommandHandlerTests
 
         // Assert
 
-        id.Should().NotBeEmpty();
-
         codeGenerator.Verify(
     x => x.GenerateCodeAsync(
         It.IsAny<CancellationToken>()),

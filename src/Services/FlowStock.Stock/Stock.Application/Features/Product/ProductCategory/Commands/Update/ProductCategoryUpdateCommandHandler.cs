@@ -19,7 +19,12 @@ public sealed class ProductCategoryUpdateCommandHandler : IRequestHandler<Produc
 
     public async Task Handle(ProductCategoryUpdateCommand request, CancellationToken cancellationToken)
     {
-        ProductCategory productCategory = await _repository.GetByIdAsync(request.id,cancellationToken);
+        ProductCategory? productCategory = await _repository.GetByIdAsync(request.id, cancellationToken);
+
+        if (productCategory is null)
+        {
+            throw new NotFoundException(nameof(ProductCategory), request.id);
+        }
 
         productCategory.Name = request.name;
 
