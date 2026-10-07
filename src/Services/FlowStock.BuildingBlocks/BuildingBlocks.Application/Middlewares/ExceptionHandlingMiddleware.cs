@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using BuildingBlocks.Domain;
 
 namespace BuildingBlocks.Application;
 
@@ -34,8 +35,9 @@ public sealed class ExceptionHandlingMiddleware
     {
         int statusCode = exception switch
         {
+            DomainExceptions => StatusCodes.Status400BadRequest,
             ArgumentException => StatusCodes.Status400BadRequest,
-            KeyNotFoundException => StatusCodes.Status404NotFound,
+            NotFoundException => StatusCodes.Status404NotFound,
             UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
             _ => StatusCodes.Status500InternalServerError
         };
@@ -56,8 +58,9 @@ public sealed class ExceptionHandlingMiddleware
     {
         return ex switch
         {
+            DomainExceptions => ex.Message,
             ArgumentException => ex.Message,
-            KeyNotFoundException => ex.Message,
+            NotFoundException => ex.Message,
             UnauthorizedAccessException => "You are not Authorized!",
             _ => "An unexpected error occured!"
         };

@@ -24,10 +24,10 @@ namespace MyApp.Namespace
         {
             Guid id = await _mediator.Send(productCommand, cancellationToken);
 
-            return CreatedAtAction("GetProduct", new{id}, new {id});
+            return CreatedAtAction("GetProductById", new{id}, id);
         }
 
-        [HttpGet("{id}", Name = "GetProduct")]
+        [HttpGet("{id}", Name = "GetProductById")]
         public async Task<IActionResult> GetProductById(Guid id, CancellationToken cancellationToken)
         {
             ProductDto productDto = await _mediator.Send(new GetProductByIdQuery(id), cancellationToken);
