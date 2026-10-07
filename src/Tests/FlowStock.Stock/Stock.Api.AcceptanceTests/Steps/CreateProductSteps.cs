@@ -75,7 +75,7 @@ public sealed class CreateProductSteps
         _client?.DefaultRequestHeaders.Remove("X-Test-Permission");
 
         _client?.DefaultRequestHeaders.Add("X-Test-UserId", Guid.NewGuid().ToString());
-        _client?.DefaultRequestHeaders.Add("X-Test-Permission",Permissions.ProductCreate);
+        _client?.DefaultRequestHeaders.Add("X-Test-Permission", Permissions.ProductCreate);
 
         return Task.CompletedTask;
 
@@ -88,7 +88,7 @@ public sealed class CreateProductSteps
 
         ProductCommand productCommand = new(_categoryId, _productName);
 
-        _response = await _client.PostAsJsonAsync("/api/Product",productCommand);
+        _response = await _client.PostAsJsonAsync("/api/Product", productCommand);
 
         if (_response.IsSuccessStatusCode)
         {
@@ -99,15 +99,15 @@ public sealed class CreateProductSteps
     }
 
     [Then("the product should be created successfully")]
-public async Task ThenTheProductShouldBeCreatedSuccessfully()
-{
-    string responseBody =
-        await _response.Content.ReadAsStringAsync();
+    public async Task ThenTheProductShouldBeCreatedSuccessfully()
+    {
+        string responseBody =
+            await _response.Content.ReadAsStringAsync();
 
-    _response.StatusCode.Should().Be(
-        System.Net.HttpStatusCode.Created,
-        $"API response was: {responseBody}");
-}
+        _response.StatusCode.Should().Be(
+            System.Net.HttpStatusCode.Created,
+            $"API response was: {responseBody}");
+    }
 
     [Then("the created product identifier should be returned")]
     public async Task ThenTheCreatedProductIdentifierShouldBeReturned()
@@ -118,7 +118,7 @@ public async Task ThenTheProductShouldBeCreatedSuccessfully()
 
         StockDbContext dbContext = scope.ServiceProvider.GetRequiredService<StockDbContext>();
 
-        bool isProductExist = await dbContext.Set<Product>().AnyAsync(p=> p.Id == _createdProductId && p.ProductCategoryId == _categoryId && p.Name == _productName);
+        bool isProductExist = await dbContext.Set<Product>().AnyAsync(p => p.Id == _createdProductId && p.ProductCategoryId == _categoryId && p.Name == _productName);
 
         isProductExist.Should().BeTrue();
     }
@@ -142,10 +142,10 @@ public async Task ThenTheProductShouldBeCreatedSuccessfully()
 
         StockDbContext dbContext = scope.ServiceProvider.GetRequiredService<StockDbContext>();
 
-        bool isProductExist = await dbContext.Set<Product>().AnyAsync(p=> p.ProductCategoryId == _categoryId && p.Name == _productName);
+        bool isProductExist = await dbContext.Set<Product>().AnyAsync(p => p.ProductCategoryId == _categoryId && p.Name == _productName);
 
         isProductExist.Should().BeFalse();
     }
 
-    
+
 }

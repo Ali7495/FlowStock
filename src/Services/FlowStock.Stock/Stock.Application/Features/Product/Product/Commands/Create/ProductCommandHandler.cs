@@ -32,7 +32,7 @@ public sealed class ProductCommandHandler : IRequestHandler<ProductCommand, Guid
         if (!await _productCategoryRepository.IsCategoryExistById(request.categoryId, cancellationToken))
         {
             _logger.LogWarning("The category id {categoryId} is not exist", request.categoryId);
-            throw new DomainExceptions("CategoryId is not exist!");
+            throw new NotFoundException(nameof(ProductCategory), request.categoryId);
         }
 
         ProductCode productCode = await _codeGenerator.GenerateCodeAsync(cancellationToken);

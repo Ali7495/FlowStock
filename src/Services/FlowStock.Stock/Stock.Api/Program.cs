@@ -73,6 +73,9 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+Console.WriteLine(
+    $"Current environment: {app.Environment.EnvironmentName}");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -80,9 +83,14 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.UseSerilogRequestLogging();
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.UseSerilogRequestLogging();
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseHttpsRedirection();
 
