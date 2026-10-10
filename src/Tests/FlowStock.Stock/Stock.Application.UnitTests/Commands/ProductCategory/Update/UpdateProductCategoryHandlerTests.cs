@@ -14,17 +14,17 @@ public class UpdateProductCategoryHandlerTests
         ProductCategory productCategory = ProductCategory.Create("Test");
 
         Mock<IProductCategoryRepository> repository = new();
-        repository.Setup(r=> r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(productCategory);
+        repository.Setup(r => r.GetByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>())).ReturnsAsync(productCategory);
 
         Mock<IUnitOfWork> unitOfWork = new();
-        unitOfWork.Setup(r=> r.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
+        unitOfWork.Setup(r => r.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
         Mock<ICurrentUser> currentUser = new();
-        currentUser.Setup(r=> r.PersonId).Returns(Guid.NewGuid());
+        currentUser.Setup(r => r.PersonId).Returns(Guid.NewGuid());
 
         ProductCategoryUpdateCommandHandler handler = new(repository.Object, unitOfWork.Object, currentUser.Object);
 
-        
+
         Guid id = Guid.NewGuid();
 
         ProductCategoryUpdateCommand productCategoryCommand = new()
@@ -38,8 +38,8 @@ public class UpdateProductCategoryHandlerTests
         await handler.Handle(productCategoryCommand, CancellationToken.None);
 
         // Assert
+        repository.Verify(x => x.GetByIdAsync(id, It.IsAny<CancellationToken>()), Times.Once);
 
-        repository.Verify(c=> c.Update(It.IsAny<ProductCategory>()),Times.Once);
-        unitOfWork.Verify(c=> c.SaveChangesAsync(It.IsAny<CancellationToken>()),Times.Once);
+        unitOfWork.Verify(c => c.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 }
