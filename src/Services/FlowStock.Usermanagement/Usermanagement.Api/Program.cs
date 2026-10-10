@@ -10,7 +10,7 @@ using Usermanagement.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenTelemetry()
-    .ConfigureResource(resource => resource.AddService("FlowStock.Stock"))
+    .ConfigureResource(resource => resource.AddService("FlowStock.Usermanagement"))
     .WithTracing(tracing =>
     {
         tracing
