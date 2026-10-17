@@ -25,7 +25,7 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
     {
         _logger.LogInformation($"User: {_currentUser.UserId} is getting product by id : {request.id} including Category.");
 
-        Product product = await _productRepository.GetProductWithCategoryById(request.id, cancellationToken);
+        Product product = await _productRepository.GetProductWithCategoryByIdAsync(request.id, cancellationToken);
         if (product is null)
         {
             _logger.LogError($"Product with id : {request.id} is not exist!");

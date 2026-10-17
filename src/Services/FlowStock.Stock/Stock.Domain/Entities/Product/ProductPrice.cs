@@ -15,6 +15,11 @@ public class ProductPrice : BasicEntity
         };
     }
 
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
+
     public ICollection<OrderItem> OrderItems { get; set; }
     public Product Product { get; set; }
 }

@@ -23,6 +23,11 @@ public class Product : AggregateRoot
 
     public ProductPrice CreateProductPrice(decimal price)
     {
+        foreach (ProductPrice item in ProductPrices)
+        {
+            item.Deactivate();
+        }
+
         ProductPrice productPrice = ProductPrice.Create(price);
 
         AddPrice(productPrice);
