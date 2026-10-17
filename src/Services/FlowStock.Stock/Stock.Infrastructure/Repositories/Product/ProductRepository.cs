@@ -14,7 +14,7 @@ public class ProductRepository : Repository<Product>, IProductRepository
         return await Entities.Where(p=> p.ProductCategoryId == categoryId).ToListAsync(cancellationToken);
     }
 
-    public async Task<Product> GetProductWithCategoryById(Guid id, CancellationToken cancellationToken)
+    public async Task<Product> GetProductWithCategoryByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await Entities.Include(p=> p.ProductCategory).FirstOrDefaultAsync(p=> p.Id == id, cancellationToken);
     }
@@ -27,6 +27,11 @@ public class ProductRepository : Repository<Product>, IProductRepository
                         .Include(p=> p.InventoryReservations)
                         .Include(p=> p.InventoryTransactions)
                         .FirstOrDefaultAsync(p=> p.Id == id, cancellationToken);
+    }
+
+    public async Task<Product> GetProductWithPricesAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await Entities.Include(p=> p.ProductPrices).FirstOrDefaultAsync(p=> p.Id == id, cancellationToken);
     }
 
     public async Task<bool> HasDependenciesAsync(Guid id, CancellationToken cancellationToken)
