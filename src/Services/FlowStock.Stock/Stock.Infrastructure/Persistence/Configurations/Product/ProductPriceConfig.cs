@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Stock.Domain;
 
@@ -15,6 +16,10 @@ public class ProductPriceConfig : IEntityTypeConfiguration<ProductPrice>
         builder.HasOne(x=> x.Product)
             .WithMany(x=> x.ProductPrices)
             .HasForeignKey(x=> x.ProductId);
+
+        builder.HasIndex(x=> x.ProductId)
+            .IsUnique()
+            .HasFilter("\"IsActive\"=TRUE");
             
     }
 }
