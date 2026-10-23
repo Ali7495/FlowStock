@@ -23,12 +23,12 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
 
     public async Task<ProductDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"User: {_currentUser.UserId} is getting product by id : {request.id} including Category.");
+        _logger.LogInformation("User: {UserId} is getting product by id : {ProductId} including Category.",_currentUser.UserId,request.id);
 
         Product product = await _productRepository.GetProductWithCategoryByIdAsync(request.id, cancellationToken);
         if (product is null)
         {
-            _logger.LogError($"Product with id : {request.id} is not exist!");
+            _logger.LogError("Product with id : {ProductId} is not exist!",request.id);
             throw new NullReferenceException("ProductId is invalid");
         }
 

@@ -5,6 +5,8 @@ public class ProductPrice : BasicEntity
     public Guid ProductId { get; set; }
     public decimal Price { get; set; }
     public bool IsActive { get; set; }
+    public DateTime? DeactivatedAt { get; set; }
+    public Guid? DeactivatedBy { get; set; }
 
     public static ProductPrice Create(decimal price)
     {
