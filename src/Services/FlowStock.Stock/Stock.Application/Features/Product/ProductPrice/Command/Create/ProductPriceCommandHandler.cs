@@ -24,7 +24,7 @@ public sealed class ProductPriceCommandHandler : IRequestHandler<ProductPriceCom
     {
         _logger.LogInformation("User: {UserId} is adding price to product: {ProductId} .",_currentUser.UserId, request.productId);
 
-        Product product = await _productRepository.GetProductWithPricesAsync(request.productId, cancellationToken);
+        Product product = await _productRepository.GetProductWithPricesByIdAsync(request.productId, cancellationToken);
 
         if (product is null)
         {

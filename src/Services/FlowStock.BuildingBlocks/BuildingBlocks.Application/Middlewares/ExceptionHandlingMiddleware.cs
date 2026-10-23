@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using BuildingBlocks.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlocks.Application;
 
@@ -23,6 +24,12 @@ public sealed class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
+        catch(DbUpdateConcurrencyException exception)
+        {
+            _logger.LogError(exception, "Multiple Add or Update occured at a same time. TraceId is {TraceId}", context.TraceIdentifier);
+
+            await HandleException(context, exception);
+        }
         catch (System.Exception exception)
         {
             _logger.LogError(exception, "Unhandled exception occured. TraceId is {TraceId}", context.TraceIdentifier);
@@ -38,6 +45,7 @@ public sealed class ExceptionHandlingMiddleware
             DomainExceptions => StatusCodes.Status400BadRequest,
             ArgumentException => StatusCodes.Status400BadRequest,
             NotFoundException => StatusCodes.Status404NotFound,
+            DbUpdateConcurrencyException => StatusCodes.Status409Conflict,
             UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
             _ => StatusCodes.Status500InternalServerError
         };

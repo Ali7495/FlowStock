@@ -8,7 +8,7 @@ public class ProductRepository : Repository<Product>, IProductRepository
     public ProductRepository(StockDbContext dbContext) : base(dbContext)
     {
     }
-
+    
     public async Task<List<Product>> GetListByCategoryIdAsync(Guid categoryId, CancellationToken cancellationToken)
     {
         return await Entities.Where(p=> p.ProductCategoryId == categoryId).ToListAsync(cancellationToken);
@@ -29,7 +29,7 @@ public class ProductRepository : Repository<Product>, IProductRepository
                         .FirstOrDefaultAsync(p=> p.Id == id, cancellationToken);
     }
 
-    public async Task<Product> GetProductWithPricesAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<Product> GetProductWithPricesByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await Entities.Include(p=> p.ProductPrices).FirstOrDefaultAsync(p=> p.Id == id, cancellationToken);
     }

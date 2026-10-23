@@ -10,6 +10,7 @@ public class Product : AggregateRoot
     public Guid ProductCategoryId { get; set; }
     public string Name { get; set; }
     public ProductCode Code { get; set; }
+    public Guid Version { get; private set; } = Guid.NewGuid();
 
     public static Product Create(Guid productCategoryId, string name, ProductCode code)
     {
@@ -29,6 +30,8 @@ public class Product : AggregateRoot
         }
 
         ProductPrice productPrice = ProductPrice.Create(price);
+
+        Version = Guid.NewGuid();
 
         AddPrice(productPrice);
 

@@ -19,8 +19,8 @@ namespace MyApp.Namespace
         }
 
         [Authorize(Policy = Policies.ProductCreate)]
-        [HttpPost]
-        public async Task<IActionResult> CreateProduct(ProductCommand productCommand, CancellationToken cancellationToken)
+        [HttpPost("product")]
+        public async Task<IActionResult> CreateProduct([FromBody]ProductCommand productCommand, CancellationToken cancellationToken)
         {
             Guid id = await _mediator.Send(productCommand, cancellationToken);
 
@@ -34,5 +34,14 @@ namespace MyApp.Namespace
 
             return Ok(productDto);
         }
+
+        [HttpGet("products/{categoryId}")]
+        public async Task<IActionResult> GetProductsByCategory(Guid categoryId, CancellationToken cancellationToken)
+        {
+            List<ProductDto> productDtos = await _mediator.Send(new GetProductByCategoryIdQuery(categoryId), cancellationToken);
+
+            return Ok(productDtos);
+        }
+
     }
 }

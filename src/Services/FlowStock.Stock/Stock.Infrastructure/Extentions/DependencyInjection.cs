@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<ICodeGenerator<ProductCode>, ProductCodeGenerator>();
         services.AddScoped<ISequenceGenerator, SequenceGenerator>();

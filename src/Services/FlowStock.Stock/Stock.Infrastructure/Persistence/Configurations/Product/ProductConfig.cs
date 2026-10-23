@@ -23,5 +23,8 @@ public class ProductConfig : IEntityTypeConfiguration<Product>
             .IsRequired();
 
         builder.HasIndex(x=> x.Code).IsUnique();       
+
+        builder.Property(x=> x.Version)
+            .IsConcurrencyToken();
     }
 }

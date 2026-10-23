@@ -27,5 +27,21 @@ namespace MyApp.Namespace
 
             return Ok(product);
         }
+
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> GetActivePriceByProduct(GetActivePriceByProductIdQuery query, CancellationToken cancellationToken)
+        {
+            ProductPriceDto productPriceDto = await _mediator.Send(query,cancellationToken);
+
+            return Ok(productPriceDto);
+        }
+
+        [HttpGet("prices/{productId}")]
+        public async Task<IActionResult> GetPricesOfProduct(GetAllPricesByProductQuery query, CancellationToken cancellationToken)
+        {
+            List<ProductPriceAllInfoDto> allInfoDtos = await _mediator.Send(query, cancellationToken);
+
+            return Ok(allInfoDtos);
+        }
     }
 }
