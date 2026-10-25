@@ -43,5 +43,13 @@ namespace MyApp.Namespace
 
             return Ok(allInfoDtos);
         }
+
+        [HttpPut("{productId}")]
+        public async Task<IActionResult> UpdateProductPrice(UpdateProductPriceCommand command, CancellationToken cancellationToken)
+        {
+            ProductPriceDto productPriceDto = await _mediator.Send(command, cancellationToken);
+
+            return Ok(productPriceDto);
+        }
     }
 }
