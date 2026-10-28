@@ -18,13 +18,13 @@ public class JwtService : IJWTService
         _options = options.Value;
     }
 
-    public string GenerateAccessToken(User user)
+    public string GenerateAccessToken(User user, List<string> permissions)
     {
         SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(_options.SecretKey));
 
         SigningCredentials credentials = new(key, SecurityAlgorithms.HmacSha256);
 
-        IEnumerable<Claim> claims = CreateClaims(user);
+        IEnumerable<Claim> claims = CreateClaims(user, permissions);
 
         JwtSecurityToken token = new(
             issuer: _options.Issuer,
@@ -47,7 +47,7 @@ public class JwtService : IJWTService
     }
 
 
-    private IEnumerable<Claim> CreateClaims(User user)
+    private IEnumerable<Claim> CreateClaims(User user, List<string> permissions)
     {
         List<Claim> claims = new();
 
@@ -56,7 +56,18 @@ public class JwtService : IJWTService
         claims.Add(new (JwtRegisteredClaimNames.UniqueName, user.Username));
         claims.Add(new (JwtRegisteredClaimNames.Email, user.Email.Value));
         claims.Add(new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-        claims.Add(new ("permission", Permissions.ProductCategoryCreate));
+        
+        if(permissions.FirstOrDefault() == Permissions.Admin)
+        {
+            claims.Add(new ("permission", Permissions.Admin));
+        }
+        else
+        {
+            foreach (string permission in permissions)
+            {
+                claims.Add(new ("permission", permission));
+            }
+        }
 
         return claims;
     }
