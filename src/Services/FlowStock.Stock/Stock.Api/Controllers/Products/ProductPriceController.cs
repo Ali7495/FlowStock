@@ -19,7 +19,7 @@ namespace MyApp.Namespace
             _mediator = mediator;
         }
 
-        [Authorize(Policy = Policies.ProductPriceCreate)]
+        [Authorize(Policy = Policies.Admin)]
         [HttpPost]
         public async Task<IActionResult> AddProductPrice(ProductPriceCommand productPriceCommand, CancellationToken cancellationToken)
         {

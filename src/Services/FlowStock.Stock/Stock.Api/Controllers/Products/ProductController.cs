@@ -18,7 +18,7 @@ namespace MyApp.Namespace
             _mediator = mediator;
         }
 
-        [Authorize(Policy = Policies.ProductCreate)]
+        [Authorize(Policy = Policies.Admin)]
         [HttpPost("product")]
         public async Task<IActionResult> CreateProduct([FromBody]ProductCommand productCommand, CancellationToken cancellationToken)
         {

@@ -11,6 +11,8 @@ public class RolePermissionRepository : Repositroy<RolePermission>, IRolePermiss
 
     public Task<List<RolePermission>> GetAllPermissionsWithRoleByRoleIdAsync(Guid roleId, CancellationToken cancellationToken)
     {
-        return Entities.Where(r=> r.RoleId == roleId).ToListAsync(cancellationToken);
+        return Entities.Where(r => r.RoleId == roleId)
+        .Include(r => r.Permission)
+        .ToListAsync(cancellationToken);
     }
 }

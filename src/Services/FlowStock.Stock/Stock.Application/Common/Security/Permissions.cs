@@ -5,4 +5,5 @@ public static class Permissions
     public const string ProductCategoryCreate = "product-category-create";
     public const string ProductCreate = "product-create";
     public const string ProductPriceCreate = "product-price-create";
+    public const string Admin = "admin";
 }

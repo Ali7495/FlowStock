@@ -14,6 +14,6 @@ public sealed class UserRoleRepository : Repositroy<UserRole>, IUserRoleReposito
         return await Entities
             .Include(u=> u.Role)
             .Include(u=> u.User)
-            .FirstOrDefaultAsync(u=> u.Id == userId);
+            .FirstOrDefaultAsync(u=> u.UserId == userId, cancellationToken);
     }
 }
