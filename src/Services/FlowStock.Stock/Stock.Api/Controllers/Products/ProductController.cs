@@ -8,6 +8,7 @@ using Stock.Infrastructure;
 namespace MyApp.Namespace
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -18,13 +19,12 @@ namespace MyApp.Namespace
             _mediator = mediator;
         }
 
-        [Authorize(Policy = Policies.ProductCreate)]
         [HttpPost("product")]
         public async Task<IActionResult> CreateProduct([FromBody]ProductCommand productCommand, CancellationToken cancellationToken)
         {
             Guid id = await _mediator.Send(productCommand, cancellationToken);
 
-            return CreatedAtAction("GetProductById", new{id}, id);
+            return CreatedAtAction("GetProductById", new{id}, new{id});
         }
 
         [HttpGet("{id}", Name = "GetProductById")]
@@ -41,6 +41,14 @@ namespace MyApp.Namespace
             List<ProductDto> productDtos = await _mediator.Send(new GetProductByCategoryIdQuery(categoryId), cancellationToken);
 
             return Ok(productDtos);
+        }
+
+        [HttpPut("product/update")]
+        public async Task<IActionResult> UpdateProduct(ProductUpdateCommand productUpdateCommand, CancellationToken cancellationToken)
+        {
+            Guid productId = await _mediator.Send(productUpdateCommand, cancellationToken); 
+
+            return Ok(productId);
         }
 
     }

@@ -19,16 +19,12 @@ public sealed class CurrentUser : ICurrentUser
 
     public bool IsAuthenticated => User.Identity?.IsAuthenticated ?? false;
 
-    public Guid PersonId => Guid.Parse(User.FindFirst("sub")!.Value);
-
+    public Guid PersonId => Guid.Parse(User.FindFirstValue("personId")!);
     public Guid UserId
     {
         get
         {
-            string? value = _context
-                .HttpContext?
-                .User
-                .FindFirstValue("sub");
+            string? value = User.FindFirstValue("userId");
 
             if (!Guid.TryParse(value, out Guid userId))
             {
