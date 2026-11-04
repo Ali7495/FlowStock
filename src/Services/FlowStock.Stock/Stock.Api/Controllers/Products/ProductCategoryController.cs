@@ -19,7 +19,6 @@ namespace MyApp.Namespace
             _mediator = mediator;
         }
 
-        [Authorize(Policy = Policies.Admin)]
         [HttpPost]
         public async Task<IActionResult> CreateProductCategory(ProductCategoryCommand productCategoryCommand, CancellationToken cancellationToken)
         {

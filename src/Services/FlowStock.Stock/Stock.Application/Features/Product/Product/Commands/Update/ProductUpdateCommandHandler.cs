@@ -22,27 +22,30 @@ public sealed class ProductUpdateCommandHandler : IRequestHandler<ProductUpdateC
 
     public async Task<Guid> Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"User: {_currentUser.UserId} is updating product: {request.productId} - {request.productName}");
+        _logger.LogInformation("User: {UserId} is updating product: {productId} - {productName}", _currentUser.UserId, request.productId, request.productName);
 
         Product product = await _productRepository.GetByIdAsync(request.productId, cancellationToken);
         if (product is null)
         {
-            _logger.LogError($"User: {_currentUser.UserId} tried to update invalid productId: {request.productId}");
+            _logger.LogError("User: {UserId} tried to update invalid productId: {productId}", _currentUser.UserId, request.productId);
             throw new NullReferenceException("Invalid ProductId");
         }
 
-        _logger.LogInformation($"Current Product: id = {product.Id} - code = {product.Code} - categoryId = {product.ProductCategoryId} - name = {product.Name}");
+        _logger.LogInformation("Current Product: id = {productId} - code = {productCode} - categoryId = {productProductCategoryId} - name = {productName}",
+        product.Id, product.Code, request.categoryId, request.productName);
 
         product.Name = request.productName;
         product.ProductCategoryId = request.categoryId;
 
         _productRepository.Update(product);
 
-         _logger.LogInformation($"Updated Product: id = {product.Id} - code = {product.Code} - categoryId = {request.categoryId} - name = {request.productName}");
+         _logger.LogInformation("Updated Product: id = {productId} - code = {productCode} - categoryId = {categoryId} - name = {productName}",
+         product.Id, product.Code, request.categoryId, product.Name);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        _logger.LogInformation($"User: {_currentUser.UserId} successfully updated product: {product.Id} - {product.Code}");
+        _logger.LogInformation("User: {UserId} successfully updated product: {productId} - {productCode}",
+        _currentUser.UserId, product.Id, product.Code);
         
 
         return product.Id;
