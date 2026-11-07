@@ -48,4 +48,5 @@ public class Product : AggregateRoot
     public ICollection<InvoiceItem> InvoiceItems { get; set; }
     public ICollection<InventoryTransaction> InventoryTransactions { get; set; }
     public ICollection<InventoryReservation> InventoryReservations { get; set; }
+    public ICollection<DailyStock> DailyStocks { get; set; }
 }

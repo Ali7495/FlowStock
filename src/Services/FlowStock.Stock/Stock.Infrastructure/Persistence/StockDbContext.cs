@@ -20,6 +20,7 @@ public class StockDbContext : DbContext
     DbSet<InvoiceItem> InvoiceItems => Set<InvoiceItem>();
     DbSet<InventoryReservation> InventoryReservations => Set<InventoryReservation>();
     DbSet<InventoryTransaction> InventoryTransactions => Set<InventoryTransaction>();
+    DbSet<DailyStock> DailyStocks => Set<DailyStock>();
 
     #endregion
 
@@ -48,6 +49,7 @@ public class StockDbContext : DbContext
         modelBuilder.Entity<InvoiceItem>().HasQueryFilter(p => !p.IsDeleted);
         modelBuilder.Entity<InventoryReservation>().HasQueryFilter(p => !p.IsDeleted);
         modelBuilder.Entity<InventoryTransaction>().HasQueryFilter(p => !p.IsDeleted);
+        modelBuilder.Entity<DailyStock>().HasQueryFilter(p => !p.IsDeleted);
 
         #endregion
 

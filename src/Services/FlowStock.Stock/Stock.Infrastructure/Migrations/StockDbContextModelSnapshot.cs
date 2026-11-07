@@ -76,6 +76,46 @@ namespace Stock.Infrastructure.Migrations
                     b.ToTable("Customer", (string)null);
                 });
 
+            modelBuilder.Entity("Stock.Domain.DailyStock", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("CurrentStock")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("DailyStock", (string)null);
+                });
+
             modelBuilder.Entity("Stock.Domain.InventoryReservation", b =>
                 {
                     b.Property<Guid>("Id")
@@ -628,6 +668,17 @@ namespace Stock.Infrastructure.Migrations
                     b.ToTable("ProductPrice", (string)null);
                 });
 
+            modelBuilder.Entity("Stock.Domain.DailyStock", b =>
+                {
+                    b.HasOne("Stock.Domain.Product", "Product")
+                        .WithMany("DailyStocks")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Stock.Domain.InventoryReservation", b =>
                 {
                     b.HasOne("Stock.Domain.Order", "Order")
@@ -774,6 +825,8 @@ namespace Stock.Infrastructure.Migrations
 
             modelBuilder.Entity("Stock.Domain.Product", b =>
                 {
+                    b.Navigation("DailyStocks");
+
                     b.Navigation("InventoryReservations");
 
                     b.Navigation("InventoryTransactions");
